@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const p = require\\('/Users/sanchittanwar/Desktop/sanchit/code/job-search-agent/node_modules/puppeteer-core/package.json'\\); console.log\\(p.version\\)\")",
+      "Bash(python3)",
+      "Bash(npm install:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(chmod +x /Users/sanchittanwar/Desktop/sanchit/code/job-search-agent/scripts/launchd-install.sh /Users/sanchittanwar/Desktop/sanchit/code/job-search-agent/scripts/launchd-uninstall.sh)",
+      "Bash(grep -oE 'activity[^\"&\\\\s]{5,50}' /Users/sanchittanwar/Desktop/sanchit/code/job-search-agent/logs/feed-debug.html)",
+      "Bash(grep -oE 'urn:li:[^\"&\\\\s]{5,80}' /Users/sanchittanwar/Desktop/sanchit/code/job-search-agent/logs/feed-debug.html)",
+      "Bash(grep -oE 'componentkey=\"[^\"]{10,100}\"' /Users/sanchittanwar/Desktop/sanchit/code/job-search-agent/logs/feed-debug.html)",
+      "Bash(grep -oE 'data-[a-z-]+=\"[^\"]{10,100}\"' /Users/sanchittanwar/Desktop/sanchit/code/job-search-agent/logs/feed-debug.html)",
+      "Bash(grep -oE 'href=\"[^\"]{10,200}\"' /Users/sanchittanwar/Desktop/sanchit/code/job-search-agent/logs/post-element-debug.html)"
+    ]
+  }
+}

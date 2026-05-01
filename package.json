@@ -1,0 +1,21 @@
+{
+  "name": "linkedin-job-alert-agent",
+  "version": "1.0.0",
+  "description": "AI-powered LinkedIn feed monitor that sends WhatsApp alerts for matching job posts",
+  "main": "src/agent.js",
+  "scripts": {
+    "start": "node src/agent.js",
+    "scan": "node src/agent.js --once",
+    "dev": "LOG_LEVEL=debug node src/agent.js --once",
+    "launchd:install": "bash scripts/launchd-install.sh",
+    "launchd:uninstall": "bash scripts/launchd-uninstall.sh"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "node-cron": "^3.0.3",
+    "puppeteer": "^22.0.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "winston": "^3.11.0"
+  }
+}
