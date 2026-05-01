@@ -36,7 +36,8 @@ Classification is fully **local and free** — no cloud API calls. A two-stage p
 ```
 job-search-agent/
 ├── config/
-│   └── config.js          ← 🔧 ALL your settings here (companies, roles, locations)
+│   ├── config.example.js  ← Template (committed). Copy → config.js to get started.
+│   └── config.js          ← 🔧 YOUR settings (gitignored — companies, roles, locations, chat ID)
 ├── scripts/
 │   ├── launchd-install.sh   ← macOS scheduling setup
 │   └── launchd-uninstall.sh ← macOS scheduling teardown
@@ -74,7 +75,13 @@ ollama serve               # start the local server
 
 ### 3. Configure your targets
 
-Edit **`config/config.js`**:
+`config/config.js` is gitignored so your personal targets and chat ID stay local. Copy the template and edit it:
+
+```bash
+cp config/config.example.js config/config.js
+```
+
+Then open **`config/config.js`** and edit the fields to match your search:
 
 ```js
 companies: ["Airbnb", "Confluent", "Zoom", "GitLab", "Indeed"],

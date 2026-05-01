@@ -1,22 +1,30 @@
 /**
- * LinkedIn Job Alert Agent - Configuration
- * =========================================
- * All settings are defined here. Add/remove companies, roles,
- * locations, and platforms without touching any agent logic.
+ * LinkedIn Job Alert Agent - Configuration (TEMPLATE)
+ * ====================================================
+ * 1. Copy this file to `config/config.js`:
+ *      cp config/config.example.js config/config.js
+ * 2. Edit `config.js` to match your job search criteria.
+ * 3. `config.js` is gitignored — your personal targets and chat ID stay local.
+ *
+ * All settings are defined here. Add/remove companies, roles, locations,
+ * and platforms without touching any agent logic.
  */
 
 module.exports = {
   // ─── SCAN SCHEDULE ───────────────────────────────────────────────────────────
-  // Cron expression: "0 */3 * * *" = every 3 hours
+  // Cron expression. Used by `npm start` (continuous mode) only — the launchd
+  // installer ignores this and uses its own 30-minute interval.
   // Examples:
   //   Every 15 min : "*/15 * * * *"
   //   Every hour   : "0 * * * *"
+  //   Every 3 hours: "0 */3 * * *"   ← default
   //   Every 6 hours: "0 */6 * * *"
   //   Once a day   : "0 9 * * *"
   scanSchedule: "0 */3 * * *",
 
   // ─── TARGET COMPANIES ────────────────────────────────────────────────────────
-  // Add any company name exactly as it appears on LinkedIn profiles.
+  // Add company names exactly as they appear on LinkedIn profiles.
+  // Use ["all"] to match any company.
   companies: [
     "all",
     // "Airbnb",
@@ -27,18 +35,18 @@ module.exports = {
   ],
 
   // ─── TARGET ROLES ────────────────────────────────────────────────────────────
-  // Keywords the AI will look for in post content.
-  // Partial matches work — "Senior Software Engineer" also matches "Sr. SWE".
+  // Job titles you're looking for. Partial matches work — "Senior Software
+  // Engineer" also matches "Sr. SWE". Use ["all"] to match any engineering role.
   roles: [
     "Senior Software Engineer",
     "AI Engineer",
     "Senior Backend Engineer",
-    // "Staff Software Engineer",      // easy to add more
+    // "Staff Software Engineer",
     // "Engineering Manager",
-    // "Product Manager",
   ],
 
   // ─── PREFERRED LOCATIONS ─────────────────────────────────────────────────────
+  // Use ["all"] to match any location.
   locations: [
     "Remote",
     "India",
@@ -74,7 +82,7 @@ module.exports = {
   notifications: {
     telegram: {
       enabled: true,
-      // Setup (one-time, 2 minutes):
+      // Setup (one-time, ~2 minutes):
       //   1. Message @BotFather on Telegram → /newbot → copy the token
       //   2. Start a chat with your new bot, then visit:
       //      https://api.telegram.org/bot<TOKEN>/getUpdates
@@ -82,7 +90,8 @@ module.exports = {
       //   3. Add to .env:
       //        TELEGRAM_BOT_TOKEN=123456:ABC-...
       //        TELEGRAM_CHAT_ID=987654321
-      chatId: "838942055",  // fallback if TELEGRAM_CHAT_ID env var is not set
+      // The chatId below is only used as a fallback if TELEGRAM_CHAT_ID is unset.
+      chatId: "YOUR_TELEGRAM_CHAT_ID",
     },
     // slack: { enabled: false, webhookUrl: "https://hooks.slack.com/..." },
     // email: { enabled: false, ... },
@@ -90,7 +99,7 @@ module.exports = {
 
   // ─── OLLAMA (local LLM classification) ───────────────────────────────────────
   // Requires Ollama running locally: https://ollama.com
-  // Setup: ollama pull qwen3:8b
+  // Setup: ollama pull qwen3:8b   (or qwen3:4b / qwen3:1.7b for lighter machines)
   ollama: {
     host:  "http://localhost:11434",
     model: "qwen3:8b",

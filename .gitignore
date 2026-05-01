@@ -3,3 +3,4 @@ node_modules/
 logs/
 .DS_Store
 .claude/
+config/config.js
