@@ -100,57 +100,59 @@ const buildSystemPrompt = (config) => {
   );
 
   return `You are a strict job alert classifier for a software engineer job search.
-Reply with ONLY the word YES or NO — no explanation, no punctuation.
+Reply with ONLY a JSON object on one line — no explanation, no markdown fences.
+Format: {"match": true, "company": "CompanyName", "role": "Job Title"}
+Use null for company or role if you cannot determine them.
 
-A post is YES when ALL of the following are true:
+A post is match:true when ALL of the following are true:
 ${yesLines.join("\n")}
 
-A post is NO when ANY of these apply:
+A post is match:false when ANY of these apply:
 ${noLines.join("\n")}
 
 ---EXAMPLES---
 
 Post: "Excited to share that my team at Airbnb is hiring a Senior Software Engineer! Remote-friendly, open to candidates in India. DM me or apply via the link."
-Answer: YES
+Answer: {"match": true, "company": "Airbnb", "role": "Senior Software Engineer"}
 
 Post: "We're growing the backend team at Confluent. Looking for a strong Senior Backend Engineer — remote India welcome. Ping me if interested."
-Answer: YES
+Answer: {"match": true, "company": "Confluent", "role": "Senior Backend Engineer"}
 
 Post: "Our team at Indeed is expanding! Hiring Senior Software Engineers in Bangalore and Hyderabad. Referrals welcome, comment below."
-Answer: YES
+Answer: {"match": true, "company": "Indeed", "role": "Senior Software Engineer"}
 
 Post: "GitLab is hiring a Senior Backend Engineer — fully remote, India candidates welcome."
-Answer: YES
+Answer: {"match": true, "company": "GitLab", "role": "Senior Backend Engineer"}
 
 Post: "Zoom is looking for an AI Engineer to join the platform team in India. Apply here: [link]"
-Answer: YES
+Answer: {"match": true, "company": "Zoom", "role": "AI Engineer"}
 
 Post: "Airbnb is hiring a Software Engineering Intern for summer 2025. Based in San Francisco, USA."
-Answer: NO
+Answer: {"match": false, "company": "Airbnb", "role": "Software Engineering Intern"}
 
 Post: "Confluent is looking for a Junior Backend Engineer in New York City. Great opportunity for new grads!"
-Answer: NO
+Answer: {"match": false, "company": "Confluent", "role": "Junior Backend Engineer"}
 
 Post: "We are hiring a Senior Software Engineer at Stripe — fully remote but US only."
-Answer: NO
+Answer: {"match": false, "company": "Stripe", "role": "Senior Software Engineer"}
 
 Post: "My team at Microsoft is hiring a Senior Software Engineer — remote, India welcome."
-Answer: NO
+Answer: {"match": false, "company": "Microsoft", "role": "Senior Software Engineer"}
 
 Post: "Hot take: the best engineers are not the ones who grind LeetCode."
-Answer: NO
+Answer: {"match": false, "company": null, "role": null}
 
 Post: "Just accepted an offer at Google as a Senior SWE! Dreams do come true."
-Answer: NO
+Answer: {"match": false, "company": "Google", "role": "Senior Software Engineer"}
 
 Post: "5 things I wish I knew before my Senior Engineer interview at Amazon."
-Answer: NO
+Answer: {"match": false, "company": "Amazon", "role": null}
 
 Post: "Recruiter tip: always tailor your resume for each job. Here is how."
-Answer: NO
+Answer: {"match": false, "company": null, "role": null}
 
 Post: "We are hiring a Senior SWE at our early-stage stealth startup — remote, great equity."
-Answer: NO
+Answer: {"match": false, "company": null, "role": "Senior Software Engineer"}
 
 ---END EXAMPLES---`;
 };
@@ -182,45 +184,79 @@ class PostAnalyzer {
     return HIRING_INTENT_RES.some((re) => re.test(text));
   }
 
-  // ── Stage 2: Ollama classification ───────────────────────────────────────
-  async _ollamaClassify(postText) {
+  // ── Stage 2a: Ollama HTTP helper ─────────────────────────────────────────
+  // format: optional JSON Schema object passed as Ollama's `format` field.
+  // When present Ollama uses constrained decoding — the model is physically
+  // forced to emit tokens that match the schema, so JSON.parse never throws.
+  async _ollamaChat(messages, numPredict = 10, format = null) {
     const url  = `${this.ollamaCfg.host}/api/chat`;
     const body = {
       model:  this.ollamaCfg.model,
       stream: false,
-      think:  false,   // top-level Ollama flag: disables Qwen3 <think> reasoning mode
-      options: {
-        temperature: 0,    // deterministic — we only want YES/NO
-        num_predict: 10,   // YES/NO is 1-2 tokens; keep it tight
-      },
-      messages: [
-        { role: "user",      content: this._systemPrompt },
-        { role: "assistant", content: "Understood. Ready to classify." },
-        {
-          role: "user",
-          content: `Post: "${postText.substring(0, 500)}"\nAnswer:`,
-        },
-      ],
+      think:  false,
+      options: { temperature: 0, num_predict: numPredict },
+      messages,
     };
-
+    if (format) body.format = format;
     const res = await fetch(url, {
       method:  "POST",
       headers: { "Content-Type": "application/json" },
       body:    JSON.stringify(body),
-      signal:  AbortSignal.timeout(15000), // don't hang if Ollama is slow
+      signal:  AbortSignal.timeout(15000),
     });
-
-    if (!res.ok) {
-      throw new Error(`Ollama HTTP ${res.status}: ${await res.text()}`);
-    }
-
+    if (!res.ok) throw new Error(`Ollama HTTP ${res.status}: ${await res.text()}`);
     const data = await res.json();
-    const content = data.message?.content || "";
-    // Strip <think>…</think> blocks in case thinking mode partially activated
-    const raw    = content.replace(/<think>[\s\S]*?<\/think>/gi, "");
-    const answer = raw.trim().toUpperCase();
-    // logger.info(`Ollama response: "${content}" → interpreted as "${answer}"`);
-    return answer.startsWith("YES");
+    const raw = (data.message?.content || "").replace(/<think>[\s\S]*?<\/think>/gi, "");
+    return raw.trim();
+  }
+
+  // ── Stage 2: Ollama — classify + extract company/role in one call ─────────
+  async _classifyPost(postText) {
+    // Constrained-decoding schema: Ollama guarantees the output matches this
+    // shape, so we don't need regex heuristics or a YES/NO fallback.
+    const schema = {
+      type: "object",
+      properties: {
+        match:   { type: "boolean" },
+        company: { type: ["string", "null"] },
+        role:    { type: ["string", "null"] },
+      },
+      required: ["match", "company", "role"],
+    };
+
+    const raw = await this._ollamaChat(
+      [
+        { role: "user",      content: this._systemPrompt },
+        { role: "assistant", content: "Understood. Ready to classify." },
+        { role: "user",      content: `Post: "${postText.substring(0, 500)}"\nJSON:` },
+      ],
+      60,
+      schema
+    );
+
+    try {
+      const parsed = JSON.parse(raw);
+      return {
+        isMatch: parsed.match === true,
+        company: typeof parsed.company === "string" ? parsed.company : null,
+        role:    typeof parsed.role    === "string" ? parsed.role    : null,
+      };
+    } catch {
+      // Schema enforcement failed (very old Ollama without constrained decoding).
+      // Best-effort: look for a JSON object anywhere in the output.
+      const m = raw.match(/\{[\s\S]*?\}/);
+      if (m) {
+        try {
+          const parsed = JSON.parse(m[0]);
+          return {
+            isMatch: parsed.match === true,
+            company: typeof parsed.company === "string" ? parsed.company : null,
+            role:    typeof parsed.role    === "string" ? parsed.role    : null,
+          };
+        } catch { /* fall through */ }
+      }
+      return { isMatch: raw.toUpperCase().includes("TRUE") || raw.toUpperCase().startsWith("YES"), company: null, role: null };
+    }
   }
 
   // ── Metadata extraction (for notification message) ────────────────────────
@@ -237,7 +273,7 @@ class PostAnalyzer {
     if (!this._passesGate(text)) {
       return {
         isMatch: false, reason: "regex gate: no hiring intent",
-        matchedCompany: null, matchedRole: null,
+        company: null, role: null,
         matchedLocation: null, posterTitleMatch: false,
       };
     }
@@ -245,9 +281,11 @@ class PostAnalyzer {
     // Stage 2
     let isMatch = false;
     let reason  = "";
+    let company = null;
+    let role    = null;
     try {
-      isMatch = await this._ollamaClassify(text);
-      reason  = isMatch ? "Ollama: YES" : "Ollama: NO";
+      ({ isMatch, company, role } = await this._classifyPost(text));
+      reason = isMatch ? "Ollama: YES" : "Ollama: NO";
     } catch (err) {
       // If Ollama is unreachable, fall back to regex-only result
       logger.warn(`⚠️  Ollama unavailable (${err.message}) — falling back to regex for this post`);
@@ -255,15 +293,13 @@ class PostAnalyzer {
       reason  = "Ollama unavailable — regex gate passed";
     }
 
-    const matchedCompany  = hasAll(this.config.companies) ? null : this._firstMatch(text, this.config.companies,  this.patterns.companies);
-    const matchedRole     = hasAll(this.config.roles)     ? null : this._firstMatch(text, this.config.roles,      this.patterns.roles);
-    const matchedLocation = hasAll(this.config.locations) ? null : this._firstMatch(text, this.config.locations,  this.patterns.locations);
+    const matchedLocation = hasAll(this.config.locations) ? null : this._firstMatch(text, this.config.locations, this.patterns.locations);
     const posterTitleMatch =
       this.config.posterTitles.length === 0 ||
       hasAll(this.config.posterTitles) ||
       this.config.posterTitles.some((_, i) => this.patterns.posterTitles[i].test(authorTitle));
 
-    return { isMatch, reason, matchedCompany, matchedRole, matchedLocation, posterTitleMatch };
+    return { isMatch, reason, company, role, matchedLocation, posterTitleMatch };
   }
 
   // ── Batch filter ─────────────────────────────────────────────────────────
@@ -278,12 +314,12 @@ class PostAnalyzer {
     for (const post of posts) {
     const result = await this.analyzePost(post);
       if (result.isMatch && result.posterTitleMatch) {
-        logger.info(`✅ MATCH: "${post.authorName}" — ${result.reason}`);
+        logger.info(`✅ MATCH: "${post.authorName}" — ${JSON.stringify(result)}`);
         matches.push({ post, analysis: result });
       } else if (result.isMatch && !result.posterTitleMatch) {
         logger.debug(`  ✗ ${post.authorName}: Ollama YES but poster title not in filter`);
       } else {
-        logger.debug(`  ✗ ${post.authorName}: ${result.reason}`);
+        logger.debug(`  ✗ ${post.authorName}: ${JSON.stringify(result)}`);
       }
     }
 

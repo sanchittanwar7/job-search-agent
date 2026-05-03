@@ -19,7 +19,12 @@ const logger = createLogger({
   ),
   transports: [
     new transports.Console({
-      format: format.combine(format.colorize(), format.simple()),
+      format: format.printf(({ timestamp, level, message, stack }) => {
+        const LEVEL_COLORS = { error: "\x1b[31m", warn: "\x1b[33m", info: "\x1b[36m", debug: "\x1b[90m" };
+        const c = LEVEL_COLORS[level] || "";
+        const base = `[${timestamp}] ${c}${level.toUpperCase().padEnd(5)}\x1b[0m: ${message}`;
+        return stack ? `${base}\n${stack}` : base;
+      }),
     }),
     new transports.File({
       filename: path.join(__dirname, "../logs/agent.log"),

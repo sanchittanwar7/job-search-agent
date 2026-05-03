@@ -6,10 +6,12 @@
  */
 
 require("dotenv").config();
+const fs   = require("fs");
+const path = require("path");
 const cron = require("node-cron");
 
 const config = require("../config/config");
-const LinkedInScraper = require("./scraper");
+const LinkedInScraper = require("./linkedin_scraper");
 const PostAnalyzer = require("./analyzer");
 const NotificationService = require("./notifier");
 const SeenPostsStore = require("./store");
@@ -24,6 +26,15 @@ const COOKIE_PATH = `${__dirname}/../logs/linkedin_cookies.json`;
 const analyzer = new PostAnalyzer(config);
 const notifier = new NotificationService(config);
 const store = new SeenPostsStore();
+
+// ─── HELPERS ──────────────────────────────────────────────────────────────────
+
+function buildLevelsUrl(analysis) {
+  const company = analysis.company || null;
+  if (!company) return null;
+  const params = new URLSearchParams({ search: company, sinceDate: "year" });
+  return `https://www.levels.fyi/t/software-engineer/locations/india?${params}`;
+}
 
 // ─── CORE SCAN FUNCTION ───────────────────────────────────────────────────────
 async function runScan() {
@@ -78,7 +89,12 @@ async function runScan() {
     // 4. Mark all new posts as seen (even non-matches, to avoid re-analyzing)
     newPosts.forEach((p) => store.markSeen(p));
 
-    // 5. Send notifications
+    // 5. Attach levels.fyi link for each match
+    for (const match of matches) {
+      match.levelsUrl = buildLevelsUrl(match.analysis);
+    }
+
+    // 6. Send notifications
     await notifier.sendAlerts(matches);
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
@@ -106,8 +122,92 @@ async function start() {
   logger.info("🟢 Agent is running. Press Ctrl+C to stop.");
 }
 
-// Allow running a single scan manually: node src/agent.js --once
-if (process.argv.includes("--once")) {
+// ─── REPLAY ───────────────────────────────────────────────────────────────────
+// Re-runs Ollama analysis + levels.fyi enrichment on saved post log files.
+// Usage:
+//   npm run replay                                   ← most recent log file
+//   npm run replay:all                               ← all log files, deduped
+//   npm run replay -- --replay=logs/posts/posts_log_2026-05-02_10-00-00.json
+async function runReplay({ filePath = null, all = false } = {}) {
+  const POSTS_DIR = path.join(__dirname, "../logs/posts");
+
+  // ── Resolve which files to process ────────────────────────────────────────
+  let targetFiles;
+  if (filePath) {
+    targetFiles = [path.resolve(filePath)];
+  } else {
+    const found = fs.readdirSync(POSTS_DIR)
+      .filter((f) => /^posts_log_.*\.json$/.test(f))
+      .sort()
+      .reverse(); // newest first
+    if (!found.length) {
+      throw new Error(`No posts_log_*.json files found in ${POSTS_DIR}. Run a scan first.`);
+    }
+    targetFiles = all
+      ? found.map((f) => path.join(POSTS_DIR, f))
+      : [path.join(POSTS_DIR, found[0])];
+  }
+
+  logger.info("═══════════════════════════════════════════════════");
+  logger.info(
+    all
+      ? `🔄 Replay mode (all) — ${targetFiles.length} log file(s)`
+      : `🔄 Replay mode — ${path.basename(targetFiles[0])}`
+  );
+  logger.info("═══════════════════════════════════════════════════");
+
+  // ── Load posts, deduplicating across files by stored fingerprint ───────────
+  const seenFingerprints = new Set();
+  const posts = [];
+  for (const f of targetFiles) {
+    logger.info(`  📂 ${path.basename(f)}`);
+    const entries = JSON.parse(fs.readFileSync(f, "utf-8"));
+    for (const entry of entries) {
+      if (!seenFingerprints.has(entry.fingerprint)) {
+        seenFingerprints.add(entry.fingerprint);
+        posts.push({
+          text:        entry.text,
+          authorName:  entry.authorName,
+          authorTitle: entry.authorTitle,
+          postUrl:     entry.postUrl,
+          timestamp:   entry.timestamp,
+        });
+      }
+    }
+  }
+  logger.info(
+    `📦 ${posts.length} unique post(s) loaded` +
+    (targetFiles.length > 1 ? ` (deduped across ${targetFiles.length} files)` : "")
+  );
+
+  // ── Stage 1 + 2: regex gate → Ollama classification ───────────────────────
+  const matches = await analyzer.filterPosts(posts);
+
+  if (matches.length === 0) {
+    logger.info("🔕 No matches found in replay — no notifications sent.");
+    return;
+  }
+
+  // ── Stage 3: attach levels.fyi link ──────────────────────────────────────
+  for (const match of matches) {
+    match.levelsUrl = buildLevelsUrl(match.analysis);
+  }
+
+  // ── Stage 4: send alerts ───────────────────────────────────────────────────
+  await notifier.sendAlerts(matches);
+}
+
+// ─── ENTRYPOINT ───────────────────────────────────────────────────────────────
+const replayArg = process.argv.find((a) => a === "--replay" || a.startsWith("--replay="));
+const allFlag   = process.argv.includes("--all");
+
+if (replayArg) {
+  const filePath = replayArg.includes("=") ? replayArg.split("=")[1] : null;
+  runReplay({ filePath, all: allFlag }).then(() => process.exit(0)).catch((e) => {
+    logger.error(e);
+    process.exit(1);
+  });
+} else if (process.argv.includes("--once")) {
   runScan().then(() => process.exit(0)).catch((e) => {
     logger.error(e);
     process.exit(1);

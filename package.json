@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node src/agent.js",
     "scan": "node src/agent.js --once",
+    "replay": "node src/agent.js --replay",
+    "replay:all": "node src/agent.js --replay --all",
     "dev": "LOG_LEVEL=debug node src/agent.js --once",
     "launchd:install": "bash scripts/launchd-install.sh",
     "launchd:uninstall": "bash scripts/launchd-uninstall.sh"
