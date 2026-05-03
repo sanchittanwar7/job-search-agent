@@ -121,7 +121,7 @@ class SeenPostsStore {
       authorTitle: post.authorTitle || "",
       postUrl:     post.postUrl     || "",
       timestamp:   post.timestamp   || "",
-      text:        post.text ? post.text.substring(0, 300) : "",
+      text:        post.text ? post.text.substring(0, 1500) : "",
     });
 
     fs.writeFileSync(this._logPath, JSON.stringify(log, null, 2));

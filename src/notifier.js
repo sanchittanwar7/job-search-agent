@@ -31,8 +31,8 @@ class NotificationService {
     }
   }
 
-  async sendAlert(post, analysis) {
-    const message  = this._formatMessage(post, analysis);
+  async sendAlert(post, analysis, levelsUrl = null) {
+    const message  = this._formatMessage(post, analysis, levelsUrl);
     const channels = this.config.notifications;
     const promises = [];
 
@@ -50,8 +50,8 @@ class NotificationService {
     }
 
     logger.info(`📤 Sending ${matches.length} alert(s) via Telegram…`);
-    for (const { post, analysis } of matches) {
-      await this.sendAlert(post, analysis);
+    for (const { post, analysis, levelsUrl } of matches) {
+      await this.sendAlert(post, analysis, levelsUrl);
     }
   }
 
@@ -81,21 +81,22 @@ class NotificationService {
 
   // ─── MESSAGE FORMATTER ────────────────────────────────────────────────────
 
-  _formatMessage(post, analysis) {
+  _formatMessage(post, analysis, levelsUrl) {
     const lines = [
       `🚨 *Job Alert Match\\!*`,
       ``,
       `👤 *Posted by:* ${this._esc(post.authorName)}`,
       post.authorTitle ? `🏢 *Title:* ${this._esc(post.authorTitle)}` : null,
       ``,
-      analysis.matchedCompany  ? `🏷  *Company:*  ${this._esc(analysis.matchedCompany)}`  : null,
-      analysis.matchedRole     ? `💼 *Role:*     ${this._esc(analysis.matchedRole)}`     : null,
+      analysis.company         ? `🏷  *Company:*  ${this._esc(analysis.company)}`         : null,
+      analysis.role            ? `💼 *Role:*     ${this._esc(analysis.role)}`            : null,
       analysis.matchedLocation ? `📍 *Location:* ${this._esc(analysis.matchedLocation)}` : null,
       ``,
       `📝 *Post:*`,
       this._esc(post.text),
       ``,
       post.postUrl ? `🔗 [View Post](${this._escUrl(post.postUrl)})` : `🔗 _No direct link found_`,
+      levelsUrl    ? `💵 [Salary data on levels\\.fyi](${this._escUrl(levelsUrl)})` : null,
       ``,
       `⏰ ${this._esc(new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }))} IST`,
     ];
