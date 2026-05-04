@@ -10,7 +10,9 @@
     "replay:all": "node src/agent.js --replay --all",
     "dev": "LOG_LEVEL=debug node src/agent.js --once",
     "launchd:install": "bash scripts/launchd-install.sh",
-    "launchd:uninstall": "bash scripts/launchd-uninstall.sh"
+    "launchd:uninstall": "bash scripts/launchd-uninstall.sh",
+    "eval": "node evals/run.js",
+    "eval:verbose": "node evals/run.js --verbose"
   },
   "dependencies": {
     "dotenv": "^16.4.5",

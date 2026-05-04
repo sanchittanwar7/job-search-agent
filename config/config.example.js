@@ -101,8 +101,10 @@ module.exports = {
   // Requires Ollama running locally: https://ollama.com
   // Setup: ollama pull qwen3:8b   (or qwen3:4b / qwen3:1.7b for lighter machines)
   ollama: {
-    host:  "http://localhost:11434",
-    model: "qwen3:8b",
+    host:       "http://localhost:11434",
+    model:      "qwen3:8b",
+    timeoutMs:  60000,   // ms to wait for a single Ollama response (default 60s)
+    maxRetries: 3,       // retry attempts on timeout/connection errors before giving up
   },
 
   // ─── BROWSER / PUPPETEER ─────────────────────────────────────────────────────
