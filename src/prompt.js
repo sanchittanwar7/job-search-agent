@@ -23,7 +23,9 @@ const buildSystemPrompt = (config) => {
   } else {
     yesLines.push(
       `  2. The role EXACTLY matches one of: ${config.roles.join(", ")}`,
-      "     — Function must match: do NOT accept PM, designer, data analyst, or other non-engineering roles unless explicitly listed"
+      "     — Compare the FULL role title, not substrings. 'Software Engineer Intern' does NOT match 'Senior Software Engineer'. 'Backend Engineer' does NOT match 'Senior Backend Engineer'. 'Junior X' / 'Associate X' / 'X Intern' / 'Graduate X' do NOT match 'Senior X'",
+      "     — Seniority and function must both match. If the target is 'Senior Software Engineer', then intern, junior, associate, entry-level, graduate, or unspecified-seniority Software Engineer roles are NO",
+      "     — Do NOT accept PM, designer, data analyst, DevOps, SRE, or other non-listed functions"
     );
   }
 
@@ -58,7 +60,10 @@ const buildSystemPrompt = (config) => {
     "  - Wrong function: PM, TPM, designer, data analyst, QA, DevOps (unless explicitly listed)",
   ];
   if (!skipCompanies) noLines.push("  - The company in the post is NOT in the target list — even if role and location match perfectly, answer NO if the company is not listed");
-  if (!skipRoles)     noLines.push("  - The role does not EXACTLY match the target list — DevOps, SRE, infrastructure, data, design, or management roles are NO unless explicitly listed");
+  if (!skipRoles)     noLines.push(
+    "  - The role title in the post is a substring overlap, not an exact match — 'Software Engineer Intern' / 'Junior Software Engineer' / 'Associate Software Engineer' are distinct roles from 'Senior Software Engineer'",
+    "  - The role does not EXACTLY match the target list — DevOps, SRE, infrastructure, data, design, or management roles are NO unless explicitly listed"
+  );
   if (!skipLocations) noLines.push(
     "  - A location IS mentioned in the post and it is not in the target list",
     "  - A location IS mentioned and the role is US-only, UK-only, Europe-only, or on-site outside the target list"

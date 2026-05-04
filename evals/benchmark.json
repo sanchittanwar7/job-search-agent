@@ -457,6 +457,24 @@
     },
 
     {
+      "id": "fp_sen_role_filter_003",
+      "tags": ["false_positive", "wrong_seniority", "config_roles", "substring_trap"],
+      "description": "Walmart SWE Intern — role filter is 'Senior SWE', substring 'Software Engineer' must NOT trigger match",
+      "config": { "companies": ["all"], "roles": ["Senior Software Engineer", "AI Engineer", "Senior Backend Engineer"], "locations": ["all"], "posterTitles": [] },
+      "post": { "text": "#hiring #se #Intern Walmart is hiring Software Engineer Intern. Stipend: 1-1.5 lakh /month. Batch: 2026/2025. Apply link: [link]. Join the group for more hiring updates. Don't forget to follow for more tech job updates. #career #jobupdates #tech #job #opportunity", "authorName": "Aakanksha Chitransh", "authorTitle": "Tech Recruiter" },
+      "golden": { "isMatch": false, "company": "Walmart", "role": "Software Engineer Intern" }
+    },
+
+    {
+      "id": "fp_sen_role_filter_004",
+      "tags": ["false_positive", "wrong_seniority", "config_roles", "substring_trap"],
+      "description": "Plain 'Software Engineer' (no seniority) when target is 'Senior Software Engineer' — should NOT match",
+      "config": { "companies": ["all"], "roles": ["Senior Software Engineer", "AI Engineer", "Senior Backend Engineer"], "locations": ["all"], "posterTitles": [] },
+      "post": { "text": "Hiring Software Engineer at TCS. Bangalore. 2+ years experience. Apply now: [link]", "authorName": "TCS HR", "authorTitle": "Recruiter at TCS" },
+      "golden": { "isMatch": false, "company": "TCS", "role": "Software Engineer" }
+    },
+
+    {
       "id": "fp_loc_001",
       "tags": ["false_positive", "wrong_location"],
       "description": "Stripe SSE — US-only remote, fails location filter",
