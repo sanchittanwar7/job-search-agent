@@ -4,21 +4,18 @@
  * Two-stage pipeline:
  *
  * Stage 1 — Regex gate (< 1ms/post)
- *   Drops posts with zero hiring-intent signals so Ollama never sees them.
+ *   Drops posts with zero hiring-intent signals.
  *
- * Stage 2 — Ollama few-shot classification
- *   Sends survivors to a local qwen2.5:1.5b instance with a few-shot prompt
- *   built from the user's config (companies / roles / locations).
- *   Model replies YES or NO — nothing else (temperature=0).
- *
- * Ollama must be running: https://ollama.com  →  ollama pull qwen2.5:1.5b
+ * Stage 2 — Two focused LLM calls, no JS matching logic:
+ *   Call A: Extract facts from the post (is_job_posting, company, role, location).
+ *   Call B: Given extracted facts + user config, decide match + reason.
+ *   Separating extraction from matching keeps each call focused and accurate.
  */
 
 const logger = require("./logger");
-const { hasAll, buildSystemPrompt } = require("./prompt");
+const { hasAll, EXTRACTION_PROMPT, buildMatchPrompt } = require("./prompt");
 
 // ─── REGEX GATE ──────────────────────────────────────────────────────────────
-// Wide net — prefer false positives here; Ollama will clean them up.
 const HIRING_INTENT_RES = [
   /\b(?:we'?re?|now|actively|urgently|immediately)\s+hir(?:ing|ed)\b/i,
   /\bhir(?:ing|ed)\b/i,
@@ -28,62 +25,49 @@ const HIRING_INTENT_RES = [
   /\bjob\s+(?:opening|post(?:ing)?|listing|alert|opportunity)\b/i,
   /\bcareer\s+opportunit/i,
   /\bappl(?:y|ication|ying|icants?)\b/i,
-  /\b(?:shortlist(?:ed|ing)?|interview(?:ing|s)?)\b/i,
   /\b(?:dm|message|ping|reach\s+out)\s+(?:me|us)\b/i,
   /\bvacancy|vacancies\b/i,
-  /\btalent\s+(?:acquisition|sourcing|search)\b/i,
   /\bpositions?\s+(?:open|available|at|in)\b/i,
-  /\bopportunity\s+(?:at|with|for|to\s+join)\b/i,
   /\bexcited\s+to\s+(?:share|announce|post)\b/i,
-  /\b(?:full.?time|contract|freelance)\s+(?:role|position|opportunity)\b/i,
 ];
-
-// ─── HELPERS ─────────────────────────────────────────────────────────────────
-const esc       = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-const termRegex = (term) =>
-  new RegExp(`(?<![\\w])${esc(term).replace(/\s+/g, "\\s+")}(?![\\w])`, "i");
 
 // ─── ANALYZER ────────────────────────────────────────────────────────────────
 class PostAnalyzer {
   constructor(config) {
     this.config       = config;
     this.ollamaCfg    = config.ollama;
-    this._systemPrompt = buildSystemPrompt(config);
+    this._matchPrompt = buildMatchPrompt(config);
 
-    // Pre-compile config terms for metadata extraction (used in notification msg).
-    // Filters set to "all" get an empty pattern list (no specific term to extract).
+    const esc    = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const termRe = (t) => new RegExp(`(?<![\\w])${esc(t).replace(/\s+/g, "\\s+")}(?![\\w])`, "i");
     this.patterns = {
-      companies:    hasAll(config.companies) ? [] : config.companies.map(termRegex),
-      roles:        hasAll(config.roles)     ? [] : config.roles.map(termRegex),
-      locations:    hasAll(config.locations) ? [] : config.locations.map(termRegex),
-      posterTitles: config.posterTitles.map(termRegex),
+      companies:    hasAll(config.companies)    ? [] : config.companies.map(termRe),
+      roles:        hasAll(config.roles)        ? [] : config.roles.map(termRe),
+      locations:    hasAll(config.locations)    ? [] : config.locations.map(termRe),
+      posterTitles: config.posterTitles.map(termRe),
     };
   }
 
-  // ── Stage 1: regex gate ───────────────────────────────────────────────────
   _passesGate(text) {
     return HIRING_INTENT_RES.some((re) => re.test(text));
   }
 
-  // ── Stage 2a: Ollama HTTP helper ─────────────────────────────────────────
-  // format: optional JSON Schema object passed as Ollama's `format` field.
-  // When present Ollama uses constrained decoding — the model is physically
-  // forced to emit tokens that match the schema, so JSON.parse never throws.
-  //
-  // Retries up to OLLAMA_RETRIES times with exponential backoff on timeout or
-  // transient errors. Throws only after all attempts are exhausted.
-  async _ollamaChat(messages, numPredict = 10, format = null) {
+  async _ollamaChat(systemPrompt, userContent, numPredict, schema) {
     const url        = `${this.ollamaCfg.host}/api/chat`;
     const timeoutMs  = this.ollamaCfg.timeoutMs  ?? 60000;
     const maxRetries = this.ollamaCfg.maxRetries  ?? 3;
     const body = {
-      model:  this.ollamaCfg.model,
-      stream: false,
-      think:  false,
+      model:   this.ollamaCfg.model,
+      stream:  false,
+      think:   false,
       options: { temperature: 0, num_predict: numPredict },
-      messages,
+      messages: [
+        { role: "user",      content: systemPrompt },
+        { role: "assistant", content: "Understood." },
+        { role: "user",      content: userContent },
+      ],
     };
-    if (format) body.format = format;
+    if (schema) body.format = schema;
 
     let lastErr;
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
@@ -96,137 +80,158 @@ class PostAnalyzer {
         });
         if (!res.ok) throw new Error(`Ollama HTTP ${res.status}: ${await res.text()}`);
         const data = await res.json();
-        const raw = (data.message?.content || "").replace(/<think>[\s\S]*?<\/think>/gi, "");
+        const raw  = (data.message?.content || "").replace(/<think>[\s\S]*?<\/think>/gi, "");
         return raw.trim();
       } catch (err) {
         lastErr = err;
-        const isRetryable = err.name === "TimeoutError" || err.name === "AbortError" ||
-                            err.message?.includes("ECONNREFUSED") ||
-                            err.message?.includes("fetch failed");
-        if (!isRetryable || attempt === maxRetries) throw err;
-        const delayMs = 1000 * 2 ** (attempt - 1); // 1 s, 2 s, 4 s …
-        logger.warn(`⏳ Ollama attempt ${attempt}/${maxRetries} failed (${err.message}) — retrying in ${delayMs / 1000}s`);
-        await new Promise((r) => setTimeout(r, delayMs));
+        const retry = err.name === "TimeoutError" || err.name === "AbortError" ||
+                      err.message?.includes("ECONNREFUSED") || err.message?.includes("fetch failed");
+        if (!retry || attempt === maxRetries) throw err;
+        const delay = 1000 * 2 ** (attempt - 1);
+        logger.warn(`⏳ Ollama attempt ${attempt}/${maxRetries} failed — retrying in ${delay / 1000}s`);
+        await new Promise((r) => setTimeout(r, delay));
       }
     }
     throw lastErr;
   }
 
-  // ── Stage 2: Ollama — classify + extract company/role in one call ─────────
-  async _classifyPost(postText) {
-    // Constrained-decoding schema: Ollama guarantees the output matches this
-    // shape, so we don't need regex heuristics or a YES/NO fallback.
+  // Call A: extract facts from post text — no config context, no matching.
+  async _extract(postText) {
     const schema = {
       type: "object",
       properties: {
-        match:   { type: "boolean" },
-        company: { type: ["string", "null"] },
-        role:    { type: ["string", "null"] },
+        is_job_posting: { type: "boolean" },
+        company:        { type: ["string", "null"] },
+        role:           { type: ["string", "null"] },
+        location:       { type: ["string", "null"] },
       },
-      required: ["match", "company", "role"],
+      required: ["is_job_posting", "company", "role", "location"],
     };
 
     const raw = await this._ollamaChat(
-      [
-        { role: "user",      content: this._systemPrompt },
-        { role: "assistant", content: "Understood. Ready to classify." },
-        { role: "user",      content: `Post: "${postText.substring(0, 500)}"\nJSON:` },
-      ],
+      EXTRACTION_PROMPT,
+      `Post: "${postText.substring(0, 600)}"\nJSON:`,
+      80,
+      schema
+    );
+
+    const tryParse = (s) => {
+      const p = JSON.parse(s);
+      return {
+        is_job_posting: p.is_job_posting === true,
+        company:  typeof p.company  === "string" ? p.company.trim()  : null,
+        role:     typeof p.role     === "string" ? p.role.trim()     : null,
+        location: typeof p.location === "string" ? p.location.trim() : null,
+      };
+    };
+    try { return tryParse(raw); } catch { /* fall through */ }
+    const m = raw.match(/\{[\s\S]*?\}/);
+    if (m) { try { return tryParse(m[0]); } catch { /* fall through */ } }
+    return { is_job_posting: false, company: null, role: null, location: null };
+  }
+
+  // Call B: match extracted facts against user config — no post text, pure matching.
+  async _match(company, role, location) {
+    const schema = {
+      type: "object",
+      properties: {
+        match:  { type: "boolean" },
+        reason: { type: "string" },
+      },
+      required: ["match", "reason"],
+    };
+
+    const jobSummary = [
+      `Company : ${company  ?? "(not stated)"}`,
+      `Role    : ${role     ?? "(not stated)"}`,
+      `Location: ${location ?? "(not mentioned)"}`,
+    ].join("\n");
+
+    const raw = await this._ollamaChat(
+      this._matchPrompt,
+      `Job:\n${jobSummary}\n\nDoes this match the preferences? JSON:`,
       60,
       schema
     );
 
-    try {
-      const parsed = JSON.parse(raw);
-      return {
-        isMatch: parsed.match === true,
-        company: typeof parsed.company === "string" ? parsed.company : null,
-        role:    typeof parsed.role    === "string" ? parsed.role    : null,
-      };
-    } catch {
-      // Schema enforcement failed (very old Ollama without constrained decoding).
-      // Best-effort: look for a JSON object anywhere in the output.
-      const m = raw.match(/\{[\s\S]*?\}/);
-      if (m) {
-        try {
-          const parsed = JSON.parse(m[0]);
-          return {
-            isMatch: parsed.match === true,
-            company: typeof parsed.company === "string" ? parsed.company : null,
-            role:    typeof parsed.role    === "string" ? parsed.role    : null,
-          };
-        } catch { /* fall through */ }
-      }
-      return { isMatch: raw.toUpperCase().includes("TRUE") || raw.toUpperCase().startsWith("YES"), company: null, role: null };
-    }
+    const tryParse = (s) => {
+      const p = JSON.parse(s);
+      return { match: p.match === true, reason: typeof p.reason === "string" ? p.reason : "" };
+    };
+    try { return tryParse(raw); } catch { /* fall through */ }
+    const m = raw.match(/\{[\s\S]*?\}/);
+    if (m) { try { return tryParse(m[0]); } catch { /* fall through */ } }
+    return { match: false, reason: "parse error" };
   }
 
-  // ── Metadata extraction (for notification message) ────────────────────────
   _firstMatch(text, list, patterns) {
     return list.find((_, i) => patterns[i]?.test(text)) || null;
   }
 
-  // ── Per-post entry point ──────────────────────────────────────────────────
   async analyzePost(post) {
     const text        = post.text        || "";
     const authorTitle = post.authorTitle || "";
 
-    // Stage 1
     if (!this._passesGate(text)) {
-      return {
-        isMatch: false, reason: "regex gate: no hiring intent",
-        company: null, role: null,
-        matchedLocation: null, posterTitleMatch: false,
-      };
+      return { isMatch: false, reason: "regex gate", company: null, role: null, matchedLocation: null, posterTitleMatch: false };
     }
 
-    // Stage 2
-    let isMatch = false;
-    let reason  = "";
-    let company = null;
-    let role    = null;
+    let extracted;
     try {
-      ({ isMatch, company, role } = await this._classifyPost(text));
-      reason = isMatch ? "Ollama: YES" : "Ollama: NO";
+      extracted = await this._extract(text);
     } catch (err) {
-      logger.error(`Ollama failed after retries — skipping post by "${post.authorName}": ${err.message}`, {
-        authorName: post.authorName,
-        postSnippet: text.substring(0, 120),
-      });
-      isMatch = false;
-      reason  = `Ollama unavailable: ${err.message}`;
+      logger.error(`Ollama extraction failed: ${err.message}`);
+      return { isMatch: false, reason: `Ollama unavailable: ${err.message}`, company: null, role: null, matchedLocation: null, posterTitleMatch: false };
     }
 
-    const matchedLocation = hasAll(this.config.locations) ? null : this._firstMatch(text, this.config.locations, this.patterns.locations);
+    const { is_job_posting, company, role, location } = extracted;
+
+    if (!is_job_posting) {
+      return { isMatch: false, reason: "not a job posting", company, role, matchedLocation: location, posterTitleMatch: false };
+    }
+    if (!role) {
+      return { isMatch: false, reason: "no role extracted", company, role: null, matchedLocation: location, posterTitleMatch: false };
+    }
+
+    let matchResult;
+    try {
+      matchResult = await this._match(company, role, location);
+    } catch (err) {
+      logger.error(`Ollama matching failed: ${err.message}`);
+      return { isMatch: false, reason: `Ollama unavailable: ${err.message}`, company, role, matchedLocation: location, posterTitleMatch: false };
+    }
+
+    const matchedLocation =
+      (typeof location === "string" && location) ? location :
+      hasAll(this.config.locations) ? null :
+      this._firstMatch(text, this.config.locations, this.patterns.locations);
+
     const posterTitleMatch =
       this.config.posterTitles.length === 0 ||
       hasAll(this.config.posterTitles) ||
       this.config.posterTitles.some((_, i) => this.patterns.posterTitles[i].test(authorTitle));
 
-    return { isMatch, reason, company, role, matchedLocation, posterTitleMatch };
+    return {
+      isMatch: matchResult.match,
+      reason:  matchResult.reason,
+      company, role, matchedLocation, posterTitleMatch,
+    };
   }
 
-  // ── Batch filter ─────────────────────────────────────────────────────────
   async filterPosts(posts) {
     const gated = posts.filter((p) => this._passesGate(p.text || ""));
-    logger.info(
-      `🔍 Analyzing ${posts.length} posts — ` +
-      `regex gate: ${posts.length - gated.length} dropped, ${gated.length} sent to Ollama`
-    );
+    logger.info(`🔍 ${posts.length} posts — regex dropped ${posts.length - gated.length}, sending ${gated.length} to Ollama`);
 
     const matches = [];
     for (const post of posts) {
-    const result = await this.analyzePost(post);
+      const result = await this.analyzePost(post);
       if (result.isMatch && result.posterTitleMatch) {
-        logger.info(`✅ MATCH: "${post.authorName}" — ${JSON.stringify(result)}`);
+        logger.info(`✅ MATCH: "${post.authorName}" — ${result.reason}`);
         matches.push({ post, analysis: result });
-      } else if (result.isMatch && !result.posterTitleMatch) {
-        logger.debug(`  ✗ ${post.authorName}: Ollama YES but poster title not in filter`);
       } else {
-        logger.debug(`  ✗ ${post.authorName}: ${JSON.stringify(result)}`);
+        logger.debug(`  ✗ ${post.authorName}: ${result.reason}`);
       }
     }
-
     logger.info(`🎯 Found ${matches.length} matching posts.`);
     return matches;
   }
