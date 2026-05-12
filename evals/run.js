@@ -76,6 +76,12 @@ const roleMatches = (result, golden) => {
   return r === g || r.includes(g) || g.includes(r);
 };
 
+const locationMatches = (result, golden) => {
+  if (golden.location === null || golden.location === undefined) return true; // skip if golden doesn't assert
+  if (result.location === null || result.location === undefined) return false;
+  return normalise(result.location) === normalise(golden.location);
+};
+
 // ─── REGRESSION THRESHOLD ────────────────────────────────────────────────────
 // "differ for more than 1/3 runs" → regression when correct runs < numRuns * 2/3
 const passThreshold = (correct, total) => correct >= Math.ceil(total * 2 / 3);
@@ -91,9 +97,9 @@ async function runCase(testCase) {
   for (let i = 0; i < numRuns; i++) {
     try {
       const result = await analyzer.analyzePost(testCase.post);
-      runs.push({ isMatch: result.isMatch, company: result.company, role: result.role });
+      runs.push({ isMatch: result.isMatch, company: result.company, role: result.role, location: result.matchedLocation });
     } catch (err) {
-      runs.push({ isMatch: null, company: null, role: null, error: err.message });
+      runs.push({ isMatch: null, company: null, role: null, location: null, error: err.message });
     }
   }
   return runs;
@@ -101,13 +107,15 @@ async function runCase(testCase) {
 
 // ─── SCORE A CASE ────────────────────────────────────────────────────────────
 function score(runs, golden) {
-  const isMatchCorrect = runs.filter((r) => r.isMatch === golden.isMatch).length;
-  const companyCorrect = runs.filter((r) => companyMatches(r, golden)).length;
-  const roleCorrect    = runs.filter((r) => roleMatches(r, golden)).length;
+  const isMatchCorrect  = runs.filter((r) => r.isMatch === golden.isMatch).length;
+  const companyCorrect  = runs.filter((r) => companyMatches(r, golden)).length;
+  const roleCorrect     = runs.filter((r) => roleMatches(r, golden)).length;
+  const locationCorrect = runs.filter((r) => locationMatches(r, golden)).length;
   return {
     isMatchCorrect,
     companyCorrect,
     roleCorrect,
+    locationCorrect,
     isRegression: !passThreshold(isMatchCorrect, numRuns),
   };
 }
@@ -120,11 +128,13 @@ async function main() {
   console.log(`${c.dim}Ollama : ${resolvedHost} / ${resolvedModel}${c.reset}`);
   console.log(`${c.dim}Cases  : ${cases.length}  |  Runs per case: ${numRuns}  |  Pass threshold: ≥${Math.ceil(numRuns * 2 / 3)}/${numRuns}${c.reset}\n`);
 
-  let regressions         = 0;
-  let companyAsserts      = 0;
-  let companyCorrectTotal = 0;
-  let roleAsserts         = 0;
-  let roleCorrectTotal    = 0;
+  let regressions          = 0;
+  let companyAsserts       = 0;
+  let companyCorrectTotal  = 0;
+  let roleAsserts          = 0;
+  let roleCorrectTotal     = 0;
+  let locationAsserts      = 0;
+  let locationCorrectTotal = 0;
 
   const regressionList = [];
 
@@ -151,12 +161,20 @@ async function main() {
       if (ok) roleCorrectTotal++;
     }
 
+    let locationTag = `${c.dim}—${c.reset}`;
+    if (testCase.golden.location != null) {
+      const ok = passThreshold(sc.locationCorrect, numRuns);
+      locationTag = ok ? `${c.green}✓${c.reset}` : `${c.yellow}✗${c.reset}`;
+      locationAsserts++;
+      if (ok) locationCorrectTotal++;
+    }
+
     const regressionSuffix = sc.isRegression ? `  ${c.red}← REGRESSION${c.reset}` : "";
 
     console.log(
       `  ${indicator}  ${c.dim}${testCase.id.padEnd(18)}${c.reset}` +
       `  ${runScore.padEnd(7)}` +
-      `  co=${companyTag}  role=${roleTag}` +
+      `  co=${companyTag}  role=${roleTag}  loc=${locationTag}` +
       `  ${c.dim}${testCase.description}${c.reset}` +
       regressionSuffix
     );
@@ -168,7 +186,7 @@ async function main() {
           ? `${c.green}✓${c.reset}` : `${c.red}✗${c.reset}`;
         console.log(
           `         run${i + 1}: ${correctMark}` +
-          `  isMatch=${r.isMatch}  company=${JSON.stringify(r.company)}  role=${JSON.stringify(r.role)}` +
+          `  isMatch=${r.isMatch}  company=${JSON.stringify(r.company)}  role=${JSON.stringify(r.role)}  location=${JSON.stringify(r.location)}` +
           (r.error ? `  ${c.red}ERROR: ${r.error}${c.reset}` : "")
         );
       }
@@ -200,6 +218,11 @@ async function main() {
     const rpct = ((roleCorrectTotal / roleAsserts) * 100).toFixed(1);
     const rcol = roleCorrectTotal === roleAsserts ? c.green : c.yellow;
     console.log(`  ${rcol}Role extract     : ${roleCorrectTotal}/${roleAsserts}  (${rpct}%)${c.reset}`);
+  }
+  if (locationAsserts > 0) {
+    const lpct = ((locationCorrectTotal / locationAsserts) * 100).toFixed(1);
+    const lcol = locationCorrectTotal === locationAsserts ? c.green : c.yellow;
+    console.log(`  ${lcol}Location extract : ${locationCorrectTotal}/${locationAsserts}  (${lpct}%)${c.reset}`);
   }
 
   if (regressionList.length > 0) {

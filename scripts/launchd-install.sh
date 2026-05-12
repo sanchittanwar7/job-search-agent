@@ -1,6 +1,7 @@
 #!/bin/bash
 # Installs the job-search agent as a macOS launchd user agent.
-# Runs every 30 minutes while the Mac is awake (skips while asleep).
+# Reads the scan schedule from config/config.js (scanSchedule cron expression)
+# and converts it to the appropriate launchd StartCalendarInterval / StartInterval.
 # Uses --once mode so launchd owns the schedule, not node-cron.
 
 set -e
@@ -36,6 +37,110 @@ echo "📍 Project : $PROJECT_DIR"
 echo "📍 Node    : $NODE_PATH"
 echo "📍 Logs    : $LAUNCHD_LOG_DIR"
 
+# ── Read schedule from config ────────────────────────────────────────────────
+SCHEDULE=$(node -e "console.log(require('${PROJECT_DIR}/config/config.js').scanSchedule)" 2>/dev/null || echo "0 */3 * * *")
+echo "📍 Schedule: $SCHEDULE (from config/config.js)"
+
+# Parse cron: minute hour day-of-month month day-of-week
+IFS=' ' read -r CRON_MIN CRON_HOUR CRON_DOM CRON_MON CRON_DOW <<< "$SCHEDULE"
+
+# ── Convert cron to launchd schedule XML ─────────────────────────────────────
+generate_schedule_xml() {
+  local min="$1" hour="$2"
+
+  # Case 1: */N minutes → enumerate minute entries (coalesces on sleep)
+  if [[ "$min" =~ ^\*/([0-9]+)$ ]]; then
+    local step="${BASH_REMATCH[1]}"
+    cat << XML
+  <!-- Every ${step} minutes (from config) -->
+  <key>StartCalendarInterval</key>
+  <array>
+XML
+    for ((m=0; m<60; m+=step)); do
+      cat << XML
+    <dict>
+      <key>Minute</key><integer>${m}</integer>
+    </dict>
+XML
+    done
+    cat << XML
+  </array>
+XML
+    return
+  fi
+
+  # Case 2: */N hours → enumerate hours at the given minute
+  if [[ "$hour" =~ ^\*/([0-9]+)$ ]]; then
+    local step="${BASH_REMATCH[1]}"
+    cat << XML
+  <!-- Every ${step} hours at minute ${min} (from config) -->
+  <key>StartCalendarInterval</key>
+  <array>
+XML
+    for ((h=0; h<24; h+=step)); do
+      cat << XML
+    <dict>
+      <key>Minute</key><integer>${min}</integer>
+      <key>Hour</key><integer>${h}</integer>
+    </dict>
+XML
+    done
+    cat << XML
+  </array>
+XML
+    return
+  fi
+
+  # Case 3: Specific hour + minute → once daily
+  if [[ "$hour" =~ ^[0-9]+$ ]] && [[ "$min" =~ ^[0-9]+$ ]]; then
+    cat << XML
+  <!-- Daily at ${hour}:${min} (from config) -->
+  <key>StartCalendarInterval</key>
+  <array>
+    <dict>
+      <key>Minute</key><integer>${min}</integer>
+      <key>Hour</key><integer>${hour}</integer>
+    </dict>
+  </array>
+XML
+    return
+  fi
+
+  # Case 4: Every hour at specific minute
+  if [[ "$hour" == "*" ]] && [[ "$min" =~ ^[0-9]+$ ]]; then
+    cat << XML
+  <!-- Every hour at minute ${min} (from config) -->
+  <key>StartCalendarInterval</key>
+  <array>
+    <dict>
+      <key>Minute</key><integer>${min}</integer>
+    </dict>
+  </array>
+XML
+    return
+  fi
+
+  # Fallback: every 3 hours at minute 0
+  echo "  <!-- Could not parse cron '${min} ${hour}', falling back to every 3 hours -->"
+  cat << XML
+  <key>StartCalendarInterval</key>
+  <array>
+XML
+  for ((h=0; h<24; h+=3)); do
+    cat << XML
+    <dict>
+      <key>Minute</key><integer>0</integer>
+      <key>Hour</key><integer>${h}</integer>
+    </dict>
+XML
+  done
+  cat << XML
+  </array>
+XML
+}
+
+SCHEDULE_XML=$(generate_schedule_xml "$CRON_MIN" "$CRON_HOUR")
+
 # ── Write the plist ─────────────────────────────────────────────────────────
 cat > "$PLIST_PATH" << PLIST
 <?xml version="1.0" encoding="UTF-8"?>
@@ -59,11 +164,10 @@ cat > "$PLIST_PATH" << PLIST
   <key>WorkingDirectory</key>
   <string>${PROJECT_DIR}</string>
 
-  <!-- Every 30 minutes (1800 seconds) -->
-  <key>StartInterval</key>
-  <integer>1800</integer>
+${SCHEDULE_XML}
 
-  <!-- Run one scan immediately on load -->
+  <!-- Run one scan immediately on load (and on wake-from-sleep if a fire
+       was missed, via StartCalendarInterval coalescing) -->
   <key>RunAtLoad</key>
   <true/>
 
@@ -96,7 +200,8 @@ launchctl load -w "$PLIST_PATH"
 
 echo ""
 echo "✅ Agent loaded into launchd."
-echo "   • Runs every 30 min while the Mac is awake"
+echo "   • Schedule: $SCHEDULE (from config/config.js)"
+echo "   • Catches up after sleep/wake"
 echo "   • First scan starting now (RunAtLoad = true)"
 echo "   • Logs → $LAUNCHD_LOG_DIR/{launchd.log,launchd-error.log}"
 echo ""

@@ -5,573 +5,2046 @@
     "model": "qwen3:8b"
   },
   "cases": [
-
     {
       "id": "tp_001",
-      "tags": ["true_positive", "config_all"],
+      "tags": [
+        "true_positive",
+        "config_all"
+      ],
       "description": "Airbnb SSE — hiring manager post, remote India",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Excited to share that my team at Airbnb is hiring a Senior Software Engineer! Remote-friendly, open to candidates in India. 5+ years of experience required. DM me or apply via the link below.", "authorName": "Priya Mehta", "authorTitle": "Engineering Manager at Airbnb" },
-      "golden": { "isMatch": true, "company": "Airbnb", "role": "Senior Software Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Excited to share that my team at Airbnb is hiring a Senior Software Engineer! Remote-friendly, open to candidates in India. 5+ years of experience required. DM me or apply via the link below.",
+        "authorName": "Priya Mehta",
+        "authorTitle": "Engineering Manager at Airbnb"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "Airbnb",
+        "role": "Senior Software Engineer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "tp_002",
-      "tags": ["true_positive", "config_all"],
+      "tags": [
+        "true_positive",
+        "config_all"
+      ],
       "description": "Confluent SBE — backend team expansion, remote India",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "We're expanding the backend team at Confluent. Looking for a strong Senior Backend Engineer who can own large-scale distributed systems. Remote role, open to India-based candidates. Ping me if this sounds like you.", "authorName": "Rohan Desai", "authorTitle": "Staff Engineer at Confluent" },
-      "golden": { "isMatch": true, "company": "Confluent", "role": "Senior Backend Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "We're expanding the backend team at Confluent. Looking for a strong Senior Backend Engineer who can own large-scale distributed systems. Remote role, open to India-based candidates. Ping me if this sounds like you.",
+        "authorName": "Rohan Desai",
+        "authorTitle": "Staff Engineer at Confluent"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "Confluent",
+        "role": "Senior Backend Engineer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "tp_003",
-      "tags": ["true_positive", "config_all"],
+      "tags": [
+        "true_positive",
+        "config_all"
+      ],
       "description": "GitLab SBE — fully remote, India welcome",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "GitLab is hiring a Senior Backend Engineer — fully remote, India candidates are very welcome. Strong Ruby or Go background preferred. Referrals open — comment your email below.", "authorName": "Aisha Patel", "authorTitle": "Senior Recruiter at GitLab" },
-      "golden": { "isMatch": true, "company": "GitLab", "role": "Senior Backend Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "GitLab is hiring a Senior Backend Engineer — fully remote, India candidates are very welcome. Strong Ruby or Go background preferred. Referrals open — comment your email below.",
+        "authorName": "Aisha Patel",
+        "authorTitle": "Senior Recruiter at GitLab"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "GitLab",
+        "role": "Senior Backend Engineer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "tp_004",
-      "tags": ["true_positive", "config_all"],
+      "tags": [
+        "true_positive",
+        "config_all"
+      ],
       "description": "Zoom AI Engineer — platform team, India",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Zoom is looking for an AI Engineer to join the platform intelligence team. Based in India or remote. 4+ years in ML/NLP required. Strong Python background. Apply here: [link]", "authorName": "Nikhil Sharma", "authorTitle": "Tech Lead at Zoom" },
-      "golden": { "isMatch": true, "company": "Zoom", "role": "AI Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Zoom is looking for an AI Engineer to join the platform intelligence team. Based in India or remote. 4+ years in ML/NLP required. Strong Python background. Apply here: [link]",
+        "authorName": "Nikhil Sharma",
+        "authorTitle": "Tech Lead at Zoom"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "Zoom",
+        "role": "AI Engineer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "tp_005",
-      "tags": ["true_positive", "config_all"],
+      "tags": [
+        "true_positive",
+        "config_all"
+      ],
       "description": "Razorpay Staff Engineer — Bangalore or remote India",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "We have an open headcount for a Staff Engineer at Razorpay! This role owns the payments infrastructure roadmap. Location: Bangalore or remote India. Strong distributed systems background needed. DM me if interested.", "authorName": "Vikram Singh", "authorTitle": "Principal Engineer at Razorpay" },
-      "golden": { "isMatch": true, "company": "Razorpay", "role": "Staff Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "We have an open headcount for a Staff Engineer at Razorpay! This role owns the payments infrastructure roadmap. Location: Bangalore or remote India. Strong distributed systems background needed. DM me if interested.",
+        "authorName": "Vikram Singh",
+        "authorTitle": "Principal Engineer at Razorpay"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "Razorpay",
+        "role": "Staff Engineer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "tp_006",
-      "tags": ["true_positive", "config_all"],
+      "tags": [
+        "true_positive",
+        "config_all"
+      ],
       "description": "Swiggy SDE-2 — consumer growth team, remote India",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Swiggy is hiring! We're looking for a Senior SDE-2 for our consumer growth team. Remote-first, India. Strong backend skills in Go or Java required. Drop your resume in the comments or DM me directly.", "authorName": "Deepa Iyer", "authorTitle": "Engineering Manager at Swiggy" },
-      "golden": { "isMatch": true, "company": "Swiggy", "role": "SDE-2" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Swiggy is hiring! We're looking for a Senior SDE-2 for our consumer growth team. Remote-first, India. Strong backend skills in Go or Java required. Drop your resume in the comments or DM me directly.",
+        "authorName": "Deepa Iyer",
+        "authorTitle": "Engineering Manager at Swiggy"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "Swiggy",
+        "role": "SDE-2",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "tp_007",
-      "tags": ["true_positive", "config_all"],
+      "tags": [
+        "true_positive",
+        "config_all"
+      ],
       "description": "Stripe SSE — payments platform, remote India referral",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "My team at Stripe is actively hiring a Senior Software Engineer for our payments platform. The role is remote — India candidates are strongly encouraged to apply. Reach out if you want a referral link.", "authorName": "Arjun Nair", "authorTitle": "Senior SWE at Stripe" },
-      "golden": { "isMatch": true, "company": "Stripe", "role": "Senior Software Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "My team at Stripe is actively hiring a Senior Software Engineer for our payments platform. The role is remote — India candidates are strongly encouraged to apply. Reach out if you want a referral link.",
+        "authorName": "Arjun Nair",
+        "authorTitle": "Senior SWE at Stripe"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "Stripe",
+        "role": "Senior Software Engineer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "tp_008",
-      "tags": ["true_positive", "config_all"],
+      "tags": [
+        "true_positive",
+        "config_all"
+      ],
       "description": "Cred SSE — platform team, hybrid Bangalore",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "New opening at Cred — Senior Software Engineer for the Platform team. Hybrid, Bangalore. Strong systems design background required. 5+ YOE. Apply here: [link]", "authorName": "Shreya Kapoor", "authorTitle": "Recruiter at Cred" },
-      "golden": { "isMatch": true, "company": "Cred", "role": "Senior Software Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "New opening at Cred — Senior Software Engineer for the Platform team. Hybrid, Bangalore. Strong systems design background required. 5+ YOE. Apply here: [link]",
+        "authorName": "Shreya Kapoor",
+        "authorTitle": "Recruiter at Cred"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "Cred",
+        "role": "Senior Software Engineer",
+        "location": "Bangalore"
+      }
     },
-
     {
       "id": "tp_009",
-      "tags": ["true_positive", "config_all"],
+      "tags": [
+        "true_positive",
+        "config_all"
+      ],
       "description": "Zepto SBE — supply chain, remote India",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "We're scaling fast at Zepto and need a Senior Backend Engineer on our supply chain systems team. Remote India welcome. Competitive equity + comp. Strong Go or Rust background ideal. Ping me!", "authorName": "Karan Gupta", "authorTitle": "Engineering Lead at Zepto" },
-      "golden": { "isMatch": true, "company": "Zepto", "role": "Senior Backend Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "We're scaling fast at Zepto and need a Senior Backend Engineer on our supply chain systems team. Remote India welcome. Competitive equity + comp. Strong Go or Rust background ideal. Ping me!",
+        "authorName": "Karan Gupta",
+        "authorTitle": "Engineering Lead at Zepto"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "Zepto",
+        "role": "Senior Backend Engineer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "tp_010",
-      "tags": ["true_positive", "config_all"],
+      "tags": [
+        "true_positive",
+        "config_all"
+      ],
       "description": "Atlassian SSE — Jira Cloud, Bangalore or remote",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Atlassian is growing its India R&D presence. Hiring Senior Software Engineers for the Jira Cloud platform team. Bangalore office or fully remote. Java and distributed systems experience needed. Apply below.", "authorName": "Tanvi Bhat", "authorTitle": "Senior Recruiter at Atlassian" },
-      "golden": { "isMatch": true, "company": "Atlassian", "role": "Senior Software Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Atlassian is growing its India R&D presence. Hiring Senior Software Engineers for the Jira Cloud platform team. Bangalore office or fully remote. Java and distributed systems experience needed. Apply below.",
+        "authorName": "Tanvi Bhat",
+        "authorTitle": "Senior Recruiter at Atlassian"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "Atlassian",
+        "role": "Senior Software Engineer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "tp_011",
-      "tags": ["true_positive", "config_companies"],
+      "tags": [
+        "true_positive",
+        "config_companies"
+      ],
       "description": "Airbnb SSE — matches company filter",
-      "config": { "companies": ["Airbnb", "Stripe"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "My team at Airbnb is hiring a Senior Software Engineer. Great infrastructure work, remote India welcome. DM me for a referral.", "authorName": "Ananya Rao", "authorTitle": "Senior Engineer at Airbnb" },
-      "golden": { "isMatch": true, "company": "Airbnb", "role": "Senior Software Engineer" }
+      "config": {
+        "companies": [
+          "Airbnb",
+          "Stripe"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "My team at Airbnb is hiring a Senior Software Engineer. Great infrastructure work, remote India welcome. DM me for a referral.",
+        "authorName": "Ananya Rao",
+        "authorTitle": "Senior Engineer at Airbnb"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "Airbnb",
+        "role": "Senior Software Engineer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "tp_012",
-      "tags": ["true_positive", "config_companies"],
+      "tags": [
+        "true_positive",
+        "config_companies"
+      ],
       "description": "Stripe SBE — matches company filter",
-      "config": { "companies": ["Airbnb", "Stripe"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Stripe is looking for a Senior Backend Engineer for the financial infrastructure team. India remote welcome. Apply here: [link]", "authorName": "Mohit Verma", "authorTitle": "Tech Lead at Stripe" },
-      "golden": { "isMatch": true, "company": "Stripe", "role": "Senior Backend Engineer" }
+      "config": {
+        "companies": [
+          "Airbnb",
+          "Stripe"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Stripe is looking for a Senior Backend Engineer for the financial infrastructure team. India remote welcome. Apply here: [link]",
+        "authorName": "Mohit Verma",
+        "authorTitle": "Tech Lead at Stripe"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "Stripe",
+        "role": "Senior Backend Engineer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "tp_013",
-      "tags": ["true_positive", "config_roles"],
+      "tags": [
+        "true_positive",
+        "config_roles"
+      ],
       "description": "SSE role — matches role filter, unknown company",
-      "config": { "companies": ["all"], "roles": ["Senior Software Engineer", "Staff Engineer"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "We're hiring a Senior Software Engineer at a well-funded fintech. Remote India. Strong microservices and Kafka experience required. DM me with your resume.", "authorName": "Preet Malhotra", "authorTitle": "CTO" },
-      "golden": { "isMatch": true, "company": null, "role": "Senior Software Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "Senior Software Engineer",
+          "Staff Engineer"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "We're hiring a Senior Software Engineer at a well-funded fintech. Remote India. Strong microservices and Kafka experience required. DM me with your resume.",
+        "authorName": "Preet Malhotra",
+        "authorTitle": "CTO"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": null,
+        "role": "Senior Software Engineer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "tp_014",
-      "tags": ["true_positive", "config_roles"],
+      "tags": [
+        "true_positive",
+        "config_roles"
+      ],
       "description": "Staff Engineer — matches role filter at Meesho",
-      "config": { "companies": ["all"], "roles": ["Senior Software Engineer", "Staff Engineer"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Staff Engineer opening at Meesho — core platform team. Bangalore or remote India. Looking for someone who can drive architecture decisions across multiple services. Apply here: [link]", "authorName": "Gaurav Joshi", "authorTitle": "Engineering Manager at Meesho" },
-      "golden": { "isMatch": true, "company": "Meesho", "role": "Staff Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "Senior Software Engineer",
+          "Staff Engineer"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Staff Engineer opening at Meesho — core platform team. Bangalore or remote India. Looking for someone who can drive architecture decisions across multiple services. Apply here: [link]",
+        "authorName": "Gaurav Joshi",
+        "authorTitle": "Engineering Manager at Meesho"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "Meesho",
+        "role": "Staff Engineer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "tp_015",
-      "tags": ["true_positive", "config_locations"],
+      "tags": [
+        "true_positive",
+        "config_locations"
+      ],
       "description": "Flipkart SSE — Bangalore, matches location filter",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["India", "Bangalore", "Hyderabad", "remote"], "posterTitles": [] },
-      "post": { "text": "Flipkart is hiring a Senior Software Engineer in Bangalore. Strong Java and distributed systems background preferred. 5+ YOE. Apply here: [link]", "authorName": "Neha Jain", "authorTitle": "Senior Recruiter at Flipkart" },
-      "golden": { "isMatch": true, "company": "Flipkart", "role": "Senior Software Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "India",
+          "Bangalore",
+          "Hyderabad",
+          "remote"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Flipkart is hiring a Senior Software Engineer in Bangalore. Strong Java and distributed systems background preferred. 5+ YOE. Apply here: [link]",
+        "authorName": "Neha Jain",
+        "authorTitle": "Senior Recruiter at Flipkart"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "Flipkart",
+        "role": "Senior Software Engineer",
+        "location": "Bangalore"
+      }
     },
-
     {
       "id": "tp_016",
-      "tags": ["true_positive", "config_locations"],
+      "tags": [
+        "true_positive",
+        "config_locations"
+      ],
       "description": "Unknown fintech SBE — remote India, matches location filter",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["India", "Bangalore", "Hyderabad", "remote"], "posterTitles": [] },
-      "post": { "text": "We have an opening for a Senior Backend Engineer at a leading e-commerce company. Remote, India only. Strong Go or Python background required. DM me for details.", "authorName": "Amit Shah", "authorTitle": "VP Engineering" },
-      "golden": { "isMatch": true, "company": null, "role": "Senior Backend Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "India",
+          "Bangalore",
+          "Hyderabad",
+          "remote"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "We have an opening for a Senior Backend Engineer at a leading e-commerce company. Remote, India only. Strong Go or Python background required. DM me for details.",
+        "authorName": "Amit Shah",
+        "authorTitle": "VP Engineering"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": null,
+        "role": "Senior Backend Engineer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "tp_017",
-      "tags": ["true_positive", "config_all", "location_as_company"],
+      "tags": [
+        "true_positive",
+        "config_all",
+        "location_as_company"
+      ],
       "description": "City name leads the post — company must NOT be Bangalore",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Bangalore | Senior Software Engineer | Top fintech startup | Remote India | Apply here: [link]", "authorName": "Rahul Tiwari", "authorTitle": "Hiring Manager" },
-      "golden": { "isMatch": true, "company": null, "role": "Senior Software Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Bangalore | Senior Software Engineer | Top fintech startup | Remote India | Apply here: [link]",
+        "authorName": "Rahul Tiwari",
+        "authorTitle": "Hiring Manager"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": null,
+        "role": "Senior Software Engineer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "tp_018",
-      "tags": ["true_positive", "config_all", "location_as_company"],
+      "tags": [
+        "true_positive",
+        "config_all",
+        "location_as_company"
+      ],
       "description": "'Remote India' prefix — company must NOT be 'Remote India'",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Remote India | Senior Full Stack Engineer | Fast-growing SaaS startup | Competitive salary + equity | Apply here: [link]", "authorName": "Sanya Mehta", "authorTitle": "Talent Acquisition Lead" },
-      "golden": { "isMatch": true, "company": null, "role": "Senior Full Stack Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Remote India | Senior Full Stack Engineer | Fast-growing SaaS startup | Competitive salary + equity | Apply here: [link]",
+        "authorName": "Sanya Mehta",
+        "authorTitle": "Talent Acquisition Lead"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": null,
+        "role": "Senior Full Stack Engineer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "fp_ow_001",
-      "tags": ["false_positive", "open_to_work"],
+      "tags": [
+        "false_positive",
+        "open_to_work"
+      ],
       "description": "Job seeker looking for Senior SDE/Backend roles with #Hiring hashtag",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Actively looking for new opportunities. 6 years of experience with distributed systems and microservices. Open to Senior SDE or Backend Engineer roles. Remote preferred. DM me or drop a referral! #OpenToWork #SoftwareEngineer #Hiring", "authorName": "Siddharth Kumar", "authorTitle": "Senior Software Engineer" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Actively looking for new opportunities. 6 years of experience with distributed systems and microservices. Open to Senior SDE or Backend Engineer roles. Remote preferred. DM me or drop a referral! #OpenToWork #SoftwareEngineer #Hiring",
+        "authorName": "Siddharth Kumar",
+        "authorTitle": "Senior Software Engineer"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_ow_002",
-      "tags": ["false_positive", "open_to_work"],
+      "tags": [
+        "false_positive",
+        "open_to_work"
+      ],
       "description": "Offer revoked, now seeking referrals — the original false positive",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "I recently accepted an offer for a Software Engineer role at BrowserStack through on-campus placements. Unfortunately the offer was revoked due to internal business changes. I am now actively exploring new opportunities in Software Development and Backend Engineering. I have hands-on experience in Node.js, TypeScript, Python, Go. I would appreciate any referrals. #OpenToWork #BackendDeveloper #Hiring #Referral", "authorName": "Sai Rugved", "authorTitle": "Software Engineer" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "I recently accepted an offer for a Software Engineer role at BrowserStack through on-campus placements. Unfortunately the offer was revoked due to internal business changes. I am now actively exploring new opportunities in Software Development and Backend Engineering. I have hands-on experience in Node.js, TypeScript, Python, Go. I would appreciate any referrals. #OpenToWork #BackendDeveloper #Hiring #Referral",
+        "authorName": "Sai Rugved",
+        "authorTitle": "Software Engineer"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_ow_003",
-      "tags": ["false_positive", "open_to_work"],
+      "tags": [
+        "false_positive",
+        "open_to_work"
+      ],
       "description": "HR professional seeking TA roles — the original false positive",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Hi everyone – I am looking for a new role (Immediate Joiner) and would appreciate your support. Open to: Human Resources Manager | Senior Talent Acquisition | Senior Technical Recruiter. Location: Lahore. I bring strong experience in recruitment and HR operations. Kindly engage by liking or reposting for better reach. #OpenToWork #HR #Recruitment #lahorejobs", "authorName": "Ayesha Tariq", "authorTitle": "Senior HR Manager" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Hi everyone – I am looking for a new role (Immediate Joiner) and would appreciate your support. Open to: Human Resources Manager | Senior Talent Acquisition | Senior Technical Recruiter. Location: Lahore. I bring strong experience in recruitment and HR operations. Kindly engage by liking or reposting for better reach. #OpenToWork #HR #Recruitment #lahorejobs",
+        "authorName": "Ayesha Tariq",
+        "authorTitle": "Senior HR Manager"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": "Lahore"
+      }
     },
-
     {
       "id": "fp_ow_004",
-      "tags": ["false_positive", "open_to_work"],
+      "tags": [
+        "false_positive",
+        "open_to_work"
+      ],
       "description": "Laid-off IIT grad SDE-2 exploring opportunities",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "IIT grad | 4 YOE | SDE-2 at a product company | Recently laid off due to org restructuring. Exploring new opportunities. Happy to connect with recruiters. Please DM or comment if you have a lead. #JobSearch #SoftwareEngineer #SDE2", "authorName": "Rohan Mishra", "authorTitle": "SDE-2" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "IIT grad | 4 YOE | SDE-2 at a product company | Recently laid off due to org restructuring. Exploring new opportunities. Happy to connect with recruiters. Please DM or comment if you have a lead. #JobSearch #SoftwareEngineer #SDE2",
+        "authorName": "Rohan Mishra",
+        "authorTitle": "SDE-2"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_ow_005",
-      "tags": ["false_positive", "open_to_work"],
+      "tags": [
+        "false_positive",
+        "open_to_work"
+      ],
       "description": "8 YOE SSE looking for next opportunity, uses #hiring",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "I am a Senior Software Engineer with 8 years of experience across product companies. Recently exploring my next opportunity. Open to Senior or Staff Engineering roles in India or remote. Please reach out if you have any leads or can refer me. #OpenToWork #hiring #SWE", "authorName": "Vikas Sharma", "authorTitle": "Senior Software Engineer" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "I am a Senior Software Engineer with 8 years of experience across product companies. Recently exploring my next opportunity. Open to Senior or Staff Engineering roles in India or remote. Please reach out if you have any leads or can refer me. #OpenToWork #hiring #SWE",
+        "authorName": "Vikas Sharma",
+        "authorTitle": "Senior Software Engineer"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_aj_001",
-      "tags": ["false_positive", "announcing_joining"],
+      "tags": [
+        "false_positive",
+        "announcing_joining"
+      ],
       "description": "Person announces joining Zepto — not a job posting",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Thrilled to share that I am joining Zepto as a Senior Software Engineer next month! Incredibly excited for this new chapter in my career. Grateful to everyone who supported me through the process.", "authorName": "Mihir Joshi", "authorTitle": "Senior Software Engineer" },
-      "golden": { "isMatch": false, "company": "Zepto", "role": "Senior Software Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Thrilled to share that I am joining Zepto as a Senior Software Engineer next month! Incredibly excited for this new chapter in my career. Grateful to everyone who supported me through the process.",
+        "authorName": "Mihir Joshi",
+        "authorTitle": "Senior Software Engineer"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": "Zepto",
+        "role": "Senior Software Engineer",
+        "location": null
+      }
     },
-
     {
       "id": "fp_aj_002",
-      "tags": ["false_positive", "announcing_joining"],
+      "tags": [
+        "false_positive",
+        "announcing_joining"
+      ],
       "description": "Just accepted offer at Google as Senior SWE",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Just accepted an offer at Google as a Senior SWE! Dreams do come true. Thank you to everyone who helped me prepare over the past few months.", "authorName": "Pooja Reddy", "authorTitle": "Incoming Senior SWE at Google" },
-      "golden": { "isMatch": false, "company": "Google", "role": "Senior Software Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Just accepted an offer at Google as a Senior SWE! Dreams do come true. Thank you to everyone who helped me prepare over the past few months.",
+        "authorName": "Pooja Reddy",
+        "authorTitle": "Incoming Senior SWE at Google"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": "Google",
+        "role": "Senior Software Engineer",
+        "location": null
+      }
     },
-
     {
       "id": "fp_aj_003",
-      "tags": ["false_positive", "announcing_joining"],
+      "tags": [
+        "false_positive",
+        "announcing_joining"
+      ],
       "description": "Person joined Atlassian as SBE",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Excited to announce that I have joined Atlassian as a Senior Backend Engineer! New chapter, new challenges. Looking forward to working with such a talented team.", "authorName": "Kartik Menon", "authorTitle": "Senior Backend Engineer at Atlassian" },
-      "golden": { "isMatch": false, "company": "Atlassian", "role": "Senior Backend Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Excited to announce that I have joined Atlassian as a Senior Backend Engineer! New chapter, new challenges. Looking forward to working with such a talented team.",
+        "authorName": "Kartik Menon",
+        "authorTitle": "Senior Backend Engineer at Atlassian"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": "Atlassian",
+        "role": "Senior Backend Engineer",
+        "location": null
+      }
     },
-
     {
       "id": "fp_aj_004",
-      "tags": ["false_positive", "announcing_joining"],
+      "tags": [
+        "false_positive",
+        "announcing_joining"
+      ],
       "description": "Accepted offer at Flipkart as Staff Engineer",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "After months of interviews, I have finally accepted an offer at Flipkart as a Staff Engineer. Starting next week! Cannot wait to work with such an incredible team and tackle challenges at scale.", "authorName": "Neha Kulkarni", "authorTitle": "Staff Engineer at Flipkart" },
-      "golden": { "isMatch": false, "company": "Flipkart", "role": "Staff Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "After months of interviews, I have finally accepted an offer at Flipkart as a Staff Engineer. Starting next week! Cannot wait to work with such an incredible team and tackle challenges at scale.",
+        "authorName": "Neha Kulkarni",
+        "authorTitle": "Staff Engineer at Flipkart"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": "Flipkart",
+        "role": "Staff Engineer",
+        "location": null
+      }
     },
-
     {
       "id": "fp_mkt_001",
-      "tags": ["false_positive", "marketing"],
+      "tags": [
+        "false_positive",
+        "marketing"
+      ],
       "description": "Background check company report — the original false positive",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Do you truly know which of your delivery partners might be hiding a criminal past? 3.04% fail their background checks. In Maharashtra, that number jumps to 7.49%. We analyzed 5.8M+ background verifications to uncover where the risk is hiding before your next hiring surge. The Trust Gap in the Gig Economy has the answers. Download our report.", "authorName": "TrustVerify", "authorTitle": "Background Verification Company" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Do you truly know which of your delivery partners might be hiding a criminal past? 3.04% fail their background checks. In Maharashtra, that number jumps to 7.49%. We analyzed 5.8M+ background verifications to uncover where the risk is hiding before your next hiring surge. The Trust Gap in the Gig Economy has the answers. Download our report.",
+        "authorName": "TrustVerify",
+        "authorTitle": "Background Verification Company"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_mkt_002",
-      "tags": ["false_positive", "marketing"],
+      "tags": [
+        "false_positive",
+        "marketing"
+      ],
       "description": "AI recruiting platform ad with #Hiring hashtag",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Struggling to find top tech talent? Our AI-powered recruiting platform shortlists candidates 10x faster. Reduce your time-to-hire by 40%. Join 200+ companies already using HireAI. Book a demo today. #TalentAcquisition #Hiring #HR #Recruiting", "authorName": "HireAI Platform", "authorTitle": "Recruiting SaaS" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Struggling to find top tech talent? Our AI-powered recruiting platform shortlists candidates 10x faster. Reduce your time-to-hire by 40%. Join 200+ companies already using HireAI. Book a demo today. #TalentAcquisition #Hiring #HR #Recruiting",
+        "authorName": "HireAI Platform",
+        "authorTitle": "Recruiting SaaS"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_mkt_003",
-      "tags": ["false_positive", "marketing"],
+      "tags": [
+        "false_positive",
+        "marketing"
+      ],
       "description": "Canada immigration consultant — the original false positive",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "5 things people get wrong about the Canada visitor visa, and why it costs them the approval. I have reviewed many applications. These mistakes come up again and again. Save this post if you or someone you know is planning to apply. ELLE Immigration helps families, professionals, and students navigate Canada visitor visas. 30-min consultation at $50. #VisitorVisa #CanadaImmigration #IRCC #ELLEImmigration", "authorName": "ELLE Immigration", "authorTitle": "Immigration Consultant" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "5 things people get wrong about the Canada visitor visa, and why it costs them the approval. I have reviewed many applications. These mistakes come up again and again. Save this post if you or someone you know is planning to apply. ELLE Immigration helps families, professionals, and students navigate Canada visitor visas. 30-min consultation at $50. #VisitorVisa #CanadaImmigration #IRCC #ELLEImmigration",
+        "authorName": "ELLE Immigration",
+        "authorTitle": "Immigration Consultant"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_mkt_004",
-      "tags": ["false_positive", "marketing"],
+      "tags": [
+        "false_positive",
+        "marketing"
+      ],
       "description": "Salary benchmarking report / HR analytics company",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Find out what Senior Software Engineers are actually being paid in India right now. We analyzed 12,000+ offers across 200+ companies. Download the 2025 India Tech Compensation Report. Free for a limited time. #CompensationData #HiringInsights #TechSalaries", "authorName": "CompensateIQ", "authorTitle": "HR Analytics" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Find out what Senior Software Engineers are actually being paid in India right now. We analyzed 12,000+ offers across 200+ companies. Download the 2025 India Tech Compensation Report. Free for a limited time. #CompensationData #HiringInsights #TechSalaries",
+        "authorName": "CompensateIQ",
+        "authorTitle": "HR Analytics"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_edu_001",
-      "tags": ["false_positive", "education"],
+      "tags": [
+        "false_positive",
+        "education"
+      ],
       "description": "Masters course in human rights — the original false positive",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Want to learn about human rights issues and the role of business to address them practically? Enrol today for our Masters Course this September, organised by IHRB and the Rafto Foundation for Human Rights and University of Bergen. Taught by expert faculty. Learn more and apply today: [link] #Education #HumanRights", "authorName": "Institute for Human Rights and Business", "authorTitle": "NGO" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Want to learn about human rights issues and the role of business to address them practically? Enrol today for our Masters Course this September, organised by IHRB and the Rafto Foundation for Human Rights and University of Bergen. Taught by expert faculty. Learn more and apply today: [link] #Education #HumanRights",
+        "authorName": "Institute for Human Rights and Business",
+        "authorTitle": "NGO"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_edu_002",
-      "tags": ["false_positive", "education"],
+      "tags": [
+        "false_positive",
+        "education"
+      ],
       "description": "Full stack bootcamp with 'Hiring partners' language",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Launch your tech career with our 6-month Full Stack Bootcamp. Hiring partners include top MNCs and funded startups. Placement assistance included — 93% placement rate. Apply now: [link] #Bootcamp #Coding #CareerSwitch #LearningAndDevelopment", "authorName": "CodeAcademy India", "authorTitle": "Bootcamp" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Launch your tech career with our 6-month Full Stack Bootcamp. Hiring partners include top MNCs and funded startups. Placement assistance included — 93% placement rate. Apply now: [link] #Bootcamp #Coding #CareerSwitch #LearningAndDevelopment",
+        "authorName": "CodeAcademy India",
+        "authorTitle": "Bootcamp"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_edu_003",
-      "tags": ["false_positive", "education"],
+      "tags": [
+        "false_positive",
+        "education"
+      ],
       "description": "Free system design webinar — uses 'join' language",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Join us for a free webinar on cracking system design interviews. Learn from Senior Engineers at FAANG companies. 1000+ attendees already registered. Save your spot now: [link] #SoftwareEngineering #SystemDesign #Interview #FAANG", "authorName": "SystemDesign Pro", "authorTitle": "Tech Education" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Join us for a free webinar on cracking system design interviews. Learn from Senior Engineers at FAANG companies. 1000+ attendees already registered. Save your spot now: [link] #SoftwareEngineering #SystemDesign #Interview #FAANG",
+        "authorName": "SystemDesign Pro",
+        "authorTitle": "Tech Education"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_workplace_001",
-      "tags": ["false_positive", "personal_update"],
+      "tags": [
+        "false_positive",
+        "personal_update"
+      ],
       "description": "Manager on leave — personal workplace update, not a job posting",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "I'm excited to share that my manager is on leave. Life is good. Bosses should take vacations more often.", "authorName": "Antil Yadav", "authorTitle": "Software Engineer" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "I'm excited to share that my manager is on leave. Life is good. Bosses should take vacations more often.",
+        "authorName": "Antil Yadav",
+        "authorTitle": "Software Engineer"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_workplace_002",
-      "tags": ["false_positive", "personal_update"],
+      "tags": [
+        "false_positive",
+        "personal_update"
+      ],
       "description": "Team milestone announcement — not a job posting",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Happy to share that our team just hit 1 million users! So proud of everyone who made this happen. What a journey it has been.", "authorName": "Product Manager", "authorTitle": "PM at a startup" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Happy to share that our team just hit 1 million users! So proud of everyone who made this happen. What a journey it has been.",
+        "authorName": "Product Manager",
+        "authorTitle": "PM at a startup"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_workplace_003",
-      "tags": ["false_positive", "personal_update"],
+      "tags": [
+        "false_positive",
+        "personal_update"
+      ],
       "description": "Colleague promotion announcement — not a job posting",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Excited to announce that our VP of Engineering just got promoted to CTO! Congratulations! So well deserved after years of incredible work.", "authorName": "Team Member", "authorTitle": "Senior Engineer" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Excited to announce that our VP of Engineering just got promoted to CTO! Congratulations! So well deserved after years of incredible work.",
+        "authorName": "Team Member",
+        "authorTitle": "Senior Engineer"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_adv_001",
-      "tags": ["false_positive", "career_advice"],
+      "tags": [
+        "false_positive",
+        "career_advice"
+      ],
       "description": "LeetCode hot take — motivational post",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Hot take: the best engineers are not the ones who grind LeetCode all day. They are the ones who can break down ambiguous problems, communicate clearly, and work well with a team. Hiring managers agree.", "authorName": "Ankit Gupta", "authorTitle": "Engineering Director" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Hot take: the best engineers are not the ones who grind LeetCode all day. They are the ones who can break down ambiguous problems, communicate clearly, and work well with a team. Hiring managers agree.",
+        "authorName": "Ankit Gupta",
+        "authorTitle": "Engineering Director"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_adv_002",
-      "tags": ["false_positive", "career_advice"],
+      "tags": [
+        "false_positive",
+        "career_advice"
+      ],
       "description": "5 things I wish I knew before Amazon interview",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "5 things I wish I knew before my Senior Engineer interview at Amazon. Thread: 1. Leadership Principles matter as much as the code. 2. Think out loud — silence is a red flag. 3. Clarify requirements before diving in. 4. Ask about edge cases yourself. 5. Be specific about your past impact.", "authorName": "Rajesh Pillai", "authorTitle": "Senior SWE" },
-      "golden": { "isMatch": false, "company": "Amazon", "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "5 things I wish I knew before my Senior Engineer interview at Amazon. Thread: 1. Leadership Principles matter as much as the code. 2. Think out loud — silence is a red flag. 3. Clarify requirements before diving in. 4. Ask about edge cases yourself. 5. Be specific about your past impact.",
+        "authorName": "Rajesh Pillai",
+        "authorTitle": "Senior SWE"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": "Amazon",
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_adv_003",
-      "tags": ["false_positive", "career_advice"],
+      "tags": [
+        "false_positive",
+        "career_advice"
+      ],
       "description": "Tech layoffs commentary",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "The tech layoffs of 2024 affected over 150,000 engineers globally. Here is what the job market looks like now, what skills are actually in demand, and what you should do if you are currently searching. A thread.", "authorName": "Sneha Chowdhury", "authorTitle": "Tech Career Coach" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "The tech layoffs of 2024 affected over 150,000 engineers globally. Here is what the job market looks like now, what skills are actually in demand, and what you should do if you are currently searching. A thread.",
+        "authorName": "Sneha Chowdhury",
+        "authorTitle": "Tech Career Coach"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_adv_004",
-      "tags": ["false_positive", "career_advice"],
+      "tags": [
+        "false_positive",
+        "career_advice"
+      ],
       "description": "Rejected from startup after 6 rounds — experience story",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "I got rejected after 6 rounds at a top startup for a Senior SDE role. It hurt. But here is what I learned from the experience and how I bounced back to land an even better offer 3 weeks later. #SoftwareEngineering #JobSearch #InterviewTips", "authorName": "Pranav Kadam", "authorTitle": "Software Engineer" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "I got rejected after 6 rounds at a top startup for a Senior SDE role. It hurt. But here is what I learned from the experience and how I bounced back to land an even better offer 3 weeks later. #SoftwareEngineering #JobSearch #InterviewTips",
+        "authorName": "Pranav Kadam",
+        "authorTitle": "Software Engineer"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "fp_adv_005",
-      "tags": ["false_positive", "career_advice"],
+      "tags": [
+        "false_positive",
+        "career_advice"
+      ],
       "description": "Recruiter tip — resume advice",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Recruiter tip: always tailor your resume for each application. Generic resumes get filtered out instantly. Here is a simple framework that takes under 10 minutes and actually works. Save this post.", "authorName": "Divya Sharma", "authorTitle": "Senior Recruiter" },
-      "golden": { "isMatch": false, "company": null, "role": null }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Recruiter tip: always tailor your resume for each application. Generic resumes get filtered out instantly. Here is a simple framework that takes under 10 minutes and actually works. Save this post.",
+        "authorName": "Divya Sharma",
+        "authorTitle": "Senior Recruiter"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": null,
+        "location": null
+      }
     },
-
     {
       "id": "tp_sen_001",
-      "tags": ["true_positive", "config_all", "any_seniority"],
+      "tags": [
+        "true_positive",
+        "config_all",
+        "any_seniority"
+      ],
       "description": "Airbnb intern — roles=all so no seniority gate, should match",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Airbnb is hiring a Software Engineering Intern for summer 2025! Great opportunity for students and recent grads. Based in San Francisco. Strong coding skills required. Apply: [link]", "authorName": "Campus Recruiter", "authorTitle": "University Recruiting at Airbnb" },
-      "golden": { "isMatch": true, "company": "Airbnb", "role": "Software Engineering Intern" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Airbnb is hiring a Software Engineering Intern for summer 2025! Great opportunity for students and recent grads. Based in San Francisco. Strong coding skills required. Apply: [link]",
+        "authorName": "Campus Recruiter",
+        "authorTitle": "University Recruiting at Airbnb"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "Airbnb",
+        "role": "Software Engineering Intern",
+        "location": "San Francisco"
+      }
     },
-
     {
       "id": "tp_sen_002",
-      "tags": ["true_positive", "config_all", "any_seniority"],
+      "tags": [
+        "true_positive",
+        "config_all",
+        "any_seniority"
+      ],
       "description": "Junior Backend Engineer — roles=all, no seniority gate, should match",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Confluent is looking for a Junior Backend Engineer in New York City. 0-2 years of experience. Great opportunity for new graduates! Strong Kafka and distributed systems passion preferred. Apply here.", "authorName": "HR Confluent", "authorTitle": "Recruiter at Confluent" },
-      "golden": { "isMatch": true, "company": "Confluent", "role": "Junior Backend Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Confluent is looking for a Junior Backend Engineer in New York City. 0-2 years of experience. Great opportunity for new graduates! Strong Kafka and distributed systems passion preferred. Apply here.",
+        "authorName": "HR Confluent",
+        "authorTitle": "Recruiter at Confluent"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "Confluent",
+        "role": "Junior Backend Engineer",
+        "location": "New York City"
+      }
     },
-
     {
       "id": "tp_sen_003",
-      "tags": ["true_positive", "config_all", "any_seniority"],
+      "tags": [
+        "true_positive",
+        "config_all",
+        "any_seniority"
+      ],
       "description": "Associate SWE — roles=all, no seniority gate, should match",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "We are hiring an Associate Software Engineer at our Bangalore office! Fresh graduates and those with up to 1 year of experience are welcome to apply. HDFC Bank Technology. Apply here: [link]", "authorName": "HDFC Bank HR", "authorTitle": "Campus Recruiter at HDFC Bank" },
-      "golden": { "isMatch": true, "company": "HDFC Bank", "role": "Associate Software Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "We are hiring an Associate Software Engineer at our Bangalore office! Fresh graduates and those with up to 1 year of experience are welcome to apply. HDFC Bank Technology. Apply here: [link]",
+        "authorName": "HDFC Bank HR",
+        "authorTitle": "Campus Recruiter at HDFC Bank"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "HDFC Bank",
+        "role": "Associate Software Engineer",
+        "location": "Bangalore"
+      }
     },
-
     {
       "id": "tp_sen_004",
-      "tags": ["true_positive", "config_all", "any_seniority"],
+      "tags": [
+        "true_positive",
+        "config_all",
+        "any_seniority"
+      ],
       "description": "Graduate SWE at HSBC — roles=all, no seniority gate, should match",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Looking for a Graduate Software Engineer to join our UK team at HSBC. Recent graduates with a strong CS degree encouraged to apply. Excellent learning environment and rotational programme.", "authorName": "HSBC Early Careers", "authorTitle": "Graduate Recruitment at HSBC" },
-      "golden": { "isMatch": true, "company": "HSBC", "role": "Graduate Software Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Looking for a Graduate Software Engineer to join our UK team at HSBC. Recent graduates with a strong CS degree encouraged to apply. Excellent learning environment and rotational programme.",
+        "authorName": "HSBC Early Careers",
+        "authorTitle": "Graduate Recruitment at HSBC"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "HSBC",
+        "role": "Graduate Software Engineer",
+        "location": "UK"
+      }
     },
-
     {
       "id": "tp_sen_005",
-      "tags": ["true_positive", "config_all", "any_seniority"],
+      "tags": [
+        "true_positive",
+        "config_all",
+        "any_seniority"
+      ],
       "description": "Entry-level SWE at Infosys — roles=all, no seniority gate, should match",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "We have an open position for an Entry-Level Software Engineer at our Pune office. B.Tech / M.Tech freshers welcome. Infosys. Training provided. Apply via the portal: [link]", "authorName": "Infosys HR", "authorTitle": "Campus Recruiter at Infosys" },
-      "golden": { "isMatch": true, "company": "Infosys", "role": "Entry-Level Software Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "We have an open position for an Entry-Level Software Engineer at our Pune office. B.Tech / M.Tech freshers welcome. Infosys. Training provided. Apply via the portal: [link]",
+        "authorName": "Infosys HR",
+        "authorTitle": "Campus Recruiter at Infosys"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "Infosys",
+        "role": "Entry-Level Software Engineer",
+        "location": "Pune"
+      }
     },
-
     {
       "id": "tp_sen_006",
-      "tags": ["true_positive", "config_roles", "any_seniority"],
+      "tags": [
+        "true_positive",
+        "config_roles",
+        "any_seniority"
+      ],
       "description": "Associate SWE — explicitly listed in roles filter, should match",
-      "config": { "companies": ["all"], "roles": ["Associate Software Engineer", "Junior Software Engineer"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "We are hiring an Associate Software Engineer at Razorpay, Bangalore. 0-2 years of experience. Strong fundamentals in data structures and system design. Apply: [link]", "authorName": "Razorpay Careers", "authorTitle": "Recruiter at Razorpay" },
-      "golden": { "isMatch": true, "company": "Razorpay", "role": "Associate Software Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "Associate Software Engineer",
+          "Junior Software Engineer"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "We are hiring an Associate Software Engineer at Razorpay, Bangalore. 0-2 years of experience. Strong fundamentals in data structures and system design. Apply: [link]",
+        "authorName": "Razorpay Careers",
+        "authorTitle": "Recruiter at Razorpay"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": "Razorpay",
+        "role": "Associate Software Engineer",
+        "location": "Bangalore"
+      }
     },
-
     {
       "id": "fp_sen_role_filter_001",
-      "tags": ["false_positive", "wrong_seniority", "config_roles"],
+      "tags": [
+        "false_positive",
+        "wrong_seniority",
+        "config_roles"
+      ],
       "description": "Intern post — role filter set to Senior SWE only, should NOT match",
-      "config": { "companies": ["all"], "roles": ["Senior Software Engineer"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Airbnb is hiring a Software Engineering Intern for summer 2025! Great opportunity for students and recent grads. Based in San Francisco. Strong coding skills required. Apply: [link]", "authorName": "Campus Recruiter", "authorTitle": "University Recruiting at Airbnb" },
-      "golden": { "isMatch": false, "company": "Airbnb", "role": "Software Engineering Intern" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "Senior Software Engineer"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Airbnb is hiring a Software Engineering Intern for summer 2025! Great opportunity for students and recent grads. Based in San Francisco. Strong coding skills required. Apply: [link]",
+        "authorName": "Campus Recruiter",
+        "authorTitle": "University Recruiting at Airbnb"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": "Airbnb",
+        "role": "Software Engineering Intern",
+        "location": "San Francisco"
+      }
     },
-
     {
       "id": "fp_sen_role_filter_002",
-      "tags": ["false_positive", "wrong_seniority", "config_roles"],
+      "tags": [
+        "false_positive",
+        "wrong_seniority",
+        "config_roles"
+      ],
       "description": "Junior BE — role filter set to Senior BE only, should NOT match",
-      "config": { "companies": ["all"], "roles": ["Senior Backend Engineer"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Confluent is looking for a Junior Backend Engineer. 0-2 years experience. Great opportunity for new grads. Apply here.", "authorName": "HR Confluent", "authorTitle": "Recruiter at Confluent" },
-      "golden": { "isMatch": false, "company": "Confluent", "role": "Junior Backend Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "Senior Backend Engineer"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Confluent is looking for a Junior Backend Engineer. 0-2 years experience. Great opportunity for new grads. Apply here.",
+        "authorName": "HR Confluent",
+        "authorTitle": "Recruiter at Confluent"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": "Confluent",
+        "role": "Junior Backend Engineer",
+        "location": null
+      }
     },
-
     {
       "id": "fp_sen_role_filter_003",
-      "tags": ["false_positive", "wrong_seniority", "config_roles", "substring_trap"],
+      "tags": [
+        "false_positive",
+        "wrong_seniority",
+        "config_roles",
+        "substring_trap"
+      ],
       "description": "Walmart SWE Intern — role filter is 'Senior SWE', substring 'Software Engineer' must NOT trigger match",
-      "config": { "companies": ["all"], "roles": ["Senior Software Engineer", "AI Engineer", "Senior Backend Engineer"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "#hiring #se #Intern Walmart is hiring Software Engineer Intern. Stipend: 1-1.5 lakh /month. Batch: 2026/2025. Apply link: [link]. Join the group for more hiring updates. Don't forget to follow for more tech job updates. #career #jobupdates #tech #job #opportunity", "authorName": "Aakanksha Chitransh", "authorTitle": "Tech Recruiter" },
-      "golden": { "isMatch": false, "company": "Walmart", "role": "Software Engineer Intern" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "Senior Software Engineer",
+          "AI Engineer",
+          "Senior Backend Engineer"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "#hiring #se #Intern Walmart is hiring Software Engineer Intern. Stipend: 1-1.5 lakh /month. Batch: 2026/2025. Apply link: [link]. Join the group for more hiring updates. Don't forget to follow for more tech job updates. #career #jobupdates #tech #job #opportunity",
+        "authorName": "Aakanksha Chitransh",
+        "authorTitle": "Tech Recruiter"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": "Walmart",
+        "role": "Software Engineer Intern",
+        "location": null
+      }
     },
-
     {
       "id": "fp_sen_role_filter_004",
-      "tags": ["false_positive", "wrong_seniority", "config_roles", "substring_trap"],
+      "tags": [
+        "false_positive",
+        "wrong_seniority",
+        "config_roles",
+        "substring_trap"
+      ],
       "description": "Plain 'Software Engineer' (no seniority) when target is 'Senior Software Engineer' — should NOT match",
-      "config": { "companies": ["all"], "roles": ["Senior Software Engineer", "AI Engineer", "Senior Backend Engineer"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Hiring Software Engineer at TCS. Bangalore. 2+ years experience. Apply now: [link]", "authorName": "TCS HR", "authorTitle": "Recruiter at TCS" },
-      "golden": { "isMatch": false, "company": "TCS", "role": "Software Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "Senior Software Engineer",
+          "AI Engineer",
+          "Senior Backend Engineer"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Hiring Software Engineer at TCS. Bangalore. 2+ years experience. Apply now: [link]",
+        "authorName": "TCS HR",
+        "authorTitle": "Recruiter at TCS"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": "TCS",
+        "role": "Software Engineer",
+        "location": "Bangalore"
+      }
     },
-
     {
       "id": "fp_loc_001",
-      "tags": ["false_positive", "wrong_location"],
+      "tags": [
+        "false_positive",
+        "wrong_location"
+      ],
       "description": "Stripe SSE — US-only remote, fails location filter",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["India", "Bangalore", "Hyderabad", "remote"], "posterTitles": [] },
-      "post": { "text": "We are hiring a Senior Software Engineer at Stripe — fully remote but US only. Must have US work authorization. Strong distributed systems background required. Apply: [link]", "authorName": "Stripe Recruiting", "authorTitle": "Recruiter at Stripe" },
-      "golden": { "isMatch": false, "company": "Stripe", "role": "Senior Software Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "India",
+          "Bangalore",
+          "Hyderabad",
+          "remote"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "We are hiring a Senior Software Engineer at Stripe — fully remote but US only. Must have US work authorization. Strong distributed systems background required. Apply: [link]",
+        "authorName": "Stripe Recruiting",
+        "authorTitle": "Recruiter at Stripe"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": "Stripe",
+        "role": "Senior Software Engineer",
+        "location": "US only"
+      }
     },
-
     {
       "id": "fp_loc_002",
-      "tags": ["false_positive", "wrong_location"],
+      "tags": [
+        "false_positive",
+        "wrong_location"
+      ],
       "description": "Shopify SBE — Ottawa on-site only, fails location filter",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["India", "Bangalore", "Hyderabad", "remote"], "posterTitles": [] },
-      "post": { "text": "Shopify is hiring a Senior Backend Engineer. This role is based in our Ottawa office — no remote option available. Canadian work authorization required. Apply here: [link]", "authorName": "Shopify HR", "authorTitle": "Recruiter at Shopify" },
-      "golden": { "isMatch": false, "company": "Shopify", "role": "Senior Backend Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "India",
+          "Bangalore",
+          "Hyderabad",
+          "remote"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Shopify is hiring a Senior Backend Engineer. This role is based in our Ottawa office — no remote option available. Canadian work authorization required. Apply here: [link]",
+        "authorName": "Shopify HR",
+        "authorTitle": "Recruiter at Shopify"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": "Shopify",
+        "role": "Senior Backend Engineer",
+        "location": "Ottawa"
+      }
     },
-
     {
       "id": "fp_loc_003",
-      "tags": ["false_positive", "wrong_location"],
+      "tags": [
+        "false_positive",
+        "wrong_location"
+      ],
       "description": "Meta SSE — London UK hybrid, fails location filter",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["India", "Bangalore", "Hyderabad", "remote"], "posterTitles": [] },
-      "post": { "text": "Meta is looking for a Senior Software Engineer in London. Hybrid role, UK-based candidates only. Exciting work on infrastructure at scale. Apply: [link]", "authorName": "Meta Recruiting", "authorTitle": "Technical Recruiter at Meta" },
-      "golden": { "isMatch": false, "company": "Meta", "role": "Senior Software Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "India",
+          "Bangalore",
+          "Hyderabad",
+          "remote"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Meta is looking for a Senior Software Engineer in London. Hybrid role, UK-based candidates only. Exciting work on infrastructure at scale. Apply: [link]",
+        "authorName": "Meta Recruiting",
+        "authorTitle": "Technical Recruiter at Meta"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": "Meta",
+        "role": "Senior Software Engineer",
+        "location": "London"
+      }
     },
-
     {
       "id": "tp_loc_no_location",
-      "tags": ["true_positive", "config_locations"],
+      "tags": [
+        "true_positive",
+        "config_locations"
+      ],
       "description": "No location mentioned — location check passes, should match",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["India", "Bangalore", "Hyderabad", "remote"], "posterTitles": [] },
-      "post": { "text": "We are hiring a Senior Backend Engineer for our core infrastructure team. Strong Go and Kubernetes background required. Great equity and compensation. DM me if interested.", "authorName": "Anonymous Recruiter", "authorTitle": "Talent Acquisition" },
-      "golden": { "isMatch": true, "company": null, "role": "Senior Backend Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "India",
+          "Bangalore",
+          "Hyderabad",
+          "remote"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "We are hiring a Senior Backend Engineer for our core infrastructure team. Strong Go and Kubernetes background required. Great equity and compensation. DM me if interested.",
+        "authorName": "Anonymous Recruiter",
+        "authorTitle": "Talent Acquisition"
+      },
+      "golden": {
+        "isMatch": true,
+        "company": null,
+        "role": "Senior Backend Engineer",
+        "location": null
+      }
     },
-
     {
       "id": "fp_co_001",
-      "tags": ["false_positive", "wrong_company"],
+      "tags": [
+        "false_positive",
+        "wrong_company"
+      ],
       "description": "Microsoft SSE India — not in company filter",
-      "config": { "companies": ["Airbnb", "Stripe"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "My team at Microsoft is hiring a Senior Software Engineer — remote, India welcome. Great compensation and work on large-scale cloud infrastructure. DM me for a referral.", "authorName": "Amit Chandra", "authorTitle": "Senior SWE at Microsoft" },
-      "golden": { "isMatch": false, "company": "Microsoft", "role": "Senior Software Engineer" }
+      "config": {
+        "companies": [
+          "Airbnb",
+          "Stripe"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "My team at Microsoft is hiring a Senior Software Engineer — remote, India welcome. Great compensation and work on large-scale cloud infrastructure. DM me for a referral.",
+        "authorName": "Amit Chandra",
+        "authorTitle": "Senior SWE at Microsoft"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": "Microsoft",
+        "role": "Senior Software Engineer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "fp_co_002",
-      "tags": ["false_positive", "wrong_company"],
+      "tags": [
+        "false_positive",
+        "wrong_company"
+      ],
       "description": "Razorpay SSE India — not in company filter",
-      "config": { "companies": ["Airbnb", "Stripe"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "We are hiring a Senior Software Engineer at Razorpay. Remote India welcome. Excellent equity. Apply via the link below.", "authorName": "Razorpay Talent", "authorTitle": "Recruiter at Razorpay" },
-      "golden": { "isMatch": false, "company": "Razorpay", "role": "Senior Software Engineer" }
+      "config": {
+        "companies": [
+          "Airbnb",
+          "Stripe"
+        ],
+        "roles": [
+          "all"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "We are hiring a Senior Software Engineer at Razorpay. Remote India welcome. Excellent equity. Apply via the link below.",
+        "authorName": "Razorpay Talent",
+        "authorTitle": "Recruiter at Razorpay"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": "Razorpay",
+        "role": "Senior Software Engineer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "fp_fn_001",
-      "tags": ["false_positive", "wrong_function"],
+      "tags": [
+        "false_positive",
+        "wrong_function"
+      ],
       "description": "Senior PM — wrong function for role filter",
-      "config": { "companies": ["all"], "roles": ["Senior Software Engineer", "Senior Backend Engineer"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "We are hiring a Senior Product Manager at our Bangalore office. 5+ years of PM experience, strong technical background preferred. Apply here: [link]", "authorName": "PM Recruiter", "authorTitle": "Talent Acquisition" },
-      "golden": { "isMatch": false, "company": null, "role": "Senior Product Manager" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "Senior Software Engineer",
+          "Senior Backend Engineer"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "We are hiring a Senior Product Manager at our Bangalore office. 5+ years of PM experience, strong technical background preferred. Apply here: [link]",
+        "authorName": "PM Recruiter",
+        "authorTitle": "Talent Acquisition"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": "Senior Product Manager",
+        "location": "Bangalore"
+      }
     },
-
     {
       "id": "fp_fn_002",
-      "tags": ["false_positive", "wrong_function"],
+      "tags": [
+        "false_positive",
+        "wrong_function"
+      ],
       "description": "Senior Data Analyst — wrong function for role filter",
-      "config": { "companies": ["all"], "roles": ["Senior Software Engineer", "Senior Backend Engineer"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Meesho is hiring a Senior Data Analyst in Bangalore. Strong SQL, Python, and Tableau skills required. 4+ YOE in analytics. Apply: [link]", "authorName": "Meesho Careers", "authorTitle": "Recruiter at Meesho" },
-      "golden": { "isMatch": false, "company": "Meesho", "role": "Senior Data Analyst" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "Senior Software Engineer",
+          "Senior Backend Engineer"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Meesho is hiring a Senior Data Analyst in Bangalore. Strong SQL, Python, and Tableau skills required. 4+ YOE in analytics. Apply: [link]",
+        "authorName": "Meesho Careers",
+        "authorTitle": "Recruiter at Meesho"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": "Meesho",
+        "role": "Senior Data Analyst",
+        "location": "Bangalore"
+      }
     },
-
     {
       "id": "fp_fn_003",
-      "tags": ["false_positive", "wrong_function"],
+      "tags": [
+        "false_positive",
+        "wrong_function"
+      ],
       "description": "Senior UX Designer — wrong function for role filter",
-      "config": { "companies": ["all"], "roles": ["Senior Software Engineer", "Senior Backend Engineer"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "We are looking for a Senior UX Designer to join our product team. Remote India welcome. Portfolio required. 5+ years of product design experience. DM me.", "authorName": "Design Recruiter", "authorTitle": "Hiring Manager" },
-      "golden": { "isMatch": false, "company": null, "role": "Senior UX Designer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "Senior Software Engineer",
+          "Senior Backend Engineer"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "We are looking for a Senior UX Designer to join our product team. Remote India welcome. Portfolio required. 5+ years of product design experience. DM me.",
+        "authorName": "Design Recruiter",
+        "authorTitle": "Hiring Manager"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": "Senior UX Designer",
+        "location": "Remote"
+      }
     },
-
     {
       "id": "fp_fn_004",
-      "tags": ["false_positive", "wrong_function"],
+      "tags": [
+        "false_positive",
+        "wrong_function"
+      ],
       "description": "Senior DevOps Engineer — wrong function for role filter",
-      "config": { "companies": ["all"], "roles": ["Senior Software Engineer", "Senior Backend Engineer"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "Hiring a Senior DevOps Engineer for our infrastructure team at a top SaaS startup. Bangalore or remote India. Strong Kubernetes, Terraform, and AWS background required. Apply below.", "authorName": "Infra Lead", "authorTitle": "Head of Infrastructure" },
-      "golden": { "isMatch": false, "company": null, "role": "Senior DevOps Engineer" }
+      "config": {
+        "companies": [
+          "all"
+        ],
+        "roles": [
+          "Senior Software Engineer",
+          "Senior Backend Engineer"
+        ],
+        "locations": [
+          "all"
+        ],
+        "posterTitles": []
+      },
+      "post": {
+        "text": "Hiring a Senior DevOps Engineer for our infrastructure team at a top SaaS startup. Bangalore or remote India. Strong Kubernetes, Terraform, and AWS background required. Apply below.",
+        "authorName": "Infra Lead",
+        "authorTitle": "Head of Infrastructure"
+      },
+      "golden": {
+        "isMatch": false,
+        "company": null,
+        "role": "Senior DevOps Engineer",
+        "location": "Remote"
+      }
     },
 
     {
-      "id": "fp_edge_001",
-      "tags": ["false_positive", "stealth_company"],
-      "description": "Stealth startup SSE — no company name, should not match",
-      "config": { "companies": ["all"], "roles": ["all"], "locations": ["all"], "posterTitles": [] },
-      "post": { "text": "We are hiring a Senior Software Engineer at our early-stage stealth startup. Remote-first, great equity, competitive salary. DM me if you are interested. We cannot share the company name publicly yet.", "authorName": "Anonymous Founder", "authorTitle": "CTO, Stealth Startup" },
-      "golden": { "isMatch": false, "company": null, "role": "Senior Software Engineer" }
-    }
+      "id": "fp_level_sde1_001",
+      "tags": ["false_positive", "wrong_seniority", "config_roles"],
+      "description": "SDE-1 with 0-2yr exp — should NOT match Senior SWE target",
+      "config": { "companies": ["all"], "roles": ["Senior Software Engineer"], "locations": ["all"], "posterTitles": [] },
+      "post": { "text": "We are hiring an SDE-1 for our payments team. 0-2 years of experience. Remote India. Great mentorship and learning opportunities. Apply here: [link]", "authorName": "Recruiter", "authorTitle": "Talent Acquisition" },
+      "golden": { "isMatch": false, "company": null, "role": "Software Engineer", "location": "Remote" }
+    },
 
+    {
+      "id": "fp_level_sde2_001",
+      "tags": ["false_positive", "wrong_seniority", "config_roles"],
+      "description": "SDE-2 with 3-5yr exp — mid-level should NOT match Senior SWE target",
+      "config": { "companies": ["all"], "roles": ["Senior Software Engineer"], "locations": ["all"], "posterTitles": [] },
+      "post": { "text": "Looking for an SDE-2 to join our backend team. 3-5 years of experience with distributed systems. Remote India. Strong Go or Java skills required. DM me.", "authorName": "Hiring Manager", "authorTitle": "Engineering Lead" },
+      "golden": { "isMatch": false, "company": null, "role": "Software Engineer", "location": "Remote" }
+    },
+
+    {
+      "id": "tp_level_sde3_001",
+      "tags": ["true_positive", "config_roles"],
+      "description": "SDE-3 with 5-10yr exp — SDE-3 IS senior level, should match Senior SWE",
+      "config": { "companies": ["all"], "roles": ["Senior Software Engineer"], "locations": ["all"], "posterTitles": [] },
+      "post": { "text": "Hiring SDE-3 for our core infrastructure team. 5+ years of experience required. Remote India. Strong system design and distributed systems background. Apply: [link]", "authorName": "Tech Recruiter", "authorTitle": "Senior Recruiter" },
+      "golden": { "isMatch": true, "company": null, "role": "Senior Software Engineer", "location": "Remote" }
+    },
+
+    {
+      "id": "fp_level_vague_001",
+      "tags": ["false_positive", "no_role_title"],
+      "description": "Vague post with no specific role title — uncertain, should reject",
+      "config": { "companies": ["all"], "roles": ["Senior Software Engineer"], "locations": ["all"], "posterTitles": [] },
+      "post": { "text": "We are growing fast and looking for talented people to join our engineering team! If you love building products and solving hard problems, come work with us. DM for details.", "authorName": "Startup Founder", "authorTitle": "CTO" },
+      "golden": { "isMatch": false, "company": null, "role": null, "location": null }
+    },
+
+    {
+      "id": "fp_level_fn_support_001",
+      "tags": ["false_positive", "wrong_function"],
+      "description": "Support Engineer role — wrong function, should reject",
+      "config": { "companies": ["all"], "roles": ["Senior Software Engineer", "AI Engineer", "Senior Backend Engineer"], "locations": ["all"], "posterTitles": [] },
+      "post": { "text": "Hiring a Designated Support Engineer at Red Hat. Remote India. Strong troubleshooting and Linux skills required. Apply via the link below.", "authorName": "Tech Recruiter", "authorTitle": "HR at Red Hat" },
+      "golden": { "isMatch": false, "company": "Red Hat", "role": "Designated Support Engineer", "location": "Remote" }
+    },
+
+    {
+      "id": "fp_level_fn_appdev_001",
+      "tags": ["false_positive", "wrong_function"],
+      "description": "Application Developer — not in software engineering target list, should reject",
+      "config": { "companies": ["all"], "roles": ["Senior Software Engineer", "AI Engineer", "Senior Backend Engineer"], "locations": ["all"], "posterTitles": [] },
+      "post": { "text": "IBM is hiring an Application Developer for our cloud migration team. Remote India. Experience with Java and microservices required. Apply: [link]", "authorName": "IBM Recruiter", "authorTitle": "Talent Acquisition at IBM" },
+      "golden": { "isMatch": false, "company": "IBM", "role": "Application Developer", "location": "Remote" }
+    },
+
+    {
+      "id": "fp_level_fn_director_001",
+      "tags": ["false_positive", "wrong_function"],
+      "description": "Director role — management function, not software engineering, should reject",
+      "config": { "companies": ["all"], "roles": ["Senior Software Engineer", "AI Engineer", "Senior Backend Engineer"], "locations": ["all"], "posterTitles": [] },
+      "post": { "text": "NEOM is hiring a Director of AI & Automation. Dubai, UAE. 15+ years in AI/ML leadership. Strategic role driving the AI roadmap. Apply here: [link]", "authorName": "Executive Recruiter", "authorTitle": "Head of Talent at NEOM" },
+      "golden": { "isMatch": false, "company": "NEOM", "role": "Director of AI & Automation", "location": "Dubai, UAE" }
+    },
+
+    {
+      "id": "tp_level_staff_001",
+      "tags": ["true_positive", "config_roles"],
+      "description": "Staff SWE — Staff is above Senior, should match Senior SWE in config",
+      "config": { "companies": ["all"], "roles": ["Senior Software Engineer", "AI Engineer", "Senior Backend Engineer"], "locations": ["all"], "posterTitles": [] },
+      "post": { "text": "Rubrik is hiring a Staff Software Engineer for our data security platform. Remote India welcome. 10+ years in distributed systems. Strong Golang required. DM me for a referral.", "authorName": "Engineering Lead", "authorTitle": "Principal Engineer at Rubrik" },
+      "golden": { "isMatch": true, "company": "Rubrik", "role": "Staff Software Engineer", "location": "Remote" }
+    }
   ]
 }
